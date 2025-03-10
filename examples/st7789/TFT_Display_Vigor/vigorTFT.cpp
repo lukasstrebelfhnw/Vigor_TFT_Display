@@ -9,8 +9,9 @@ vigorTFT::vigorTFT()
 {
 }
 
-void vigorTFT::createInitDisplay()
+void vigorTFT::createDisplay()
 {
+    /*
     std::cout << "Init" << std::endl;
     myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
     myTFT.fillScreen(backGroundColor);
@@ -23,6 +24,7 @@ void vigorTFT::createInitDisplay()
     myTFT.setFont(font_orla);
     myTFT.print("Hello Kathrin");
     delayMilliSecRVL(7000);
+    */
 }
 
 void vigorTFT::setGPS(signalGPS)
