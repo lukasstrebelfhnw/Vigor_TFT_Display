@@ -9,7 +9,7 @@ vigorTFT::vigorTFT()
 {
 }
 
-void vigorTFT::createInitDisplay(ST7789_TFT &myTFT)
+void vigorTFT::createInitDisplay()
 {
     std::cout << "Init" << std::endl;
     myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
