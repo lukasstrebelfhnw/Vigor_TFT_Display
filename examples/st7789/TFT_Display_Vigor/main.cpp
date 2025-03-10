@@ -34,7 +34,7 @@
 // Temporary ::  Defines
 #define vigorVersion "Vigor TFT version 1.0"
 
-vigorTFT myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
+vigorTFT myVigorTFT; // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
 
 // Display size in pixels
 #define myTFTWidth 240
@@ -62,6 +62,7 @@ int main()
 	// Initialisierung
 	bool finishedInit = false; // Flag für Initialisierung
 	State currentState = Init;
+	myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
 
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0
