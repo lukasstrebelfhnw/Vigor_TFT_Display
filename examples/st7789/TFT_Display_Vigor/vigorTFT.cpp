@@ -8,7 +8,7 @@
 #include <thread>
 #include <string>
 #include "ST7789_TFT_LCD_RVL.hpp"
-#include "Bi_Color_Bitmap_Data.hpp"
+// #include "Bi_Color_Bitmap_Data.hpp"
 /*
 #include "font_data_RVL.hpp"
 #include "print_data_RVL.hpp"
