@@ -78,7 +78,7 @@ int main()
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
 			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Hoi Jana");
+			myVigorTFT.print("Hoi Lukas");
 			// delayMilliSecRVL(7000);
 			break;
 		case Kalibrieren:
@@ -89,7 +89,7 @@ int main()
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-			myVigorTFT.setFont(font_orla);
+			myVigorTFT.setFont(font_pico);
 			myVigorTFT.print("hesch au schochli hunger?");
 			break;
 		case Auto:
@@ -100,7 +100,7 @@ int main()
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, vigorLGreen); // first text last background
-			myVigorTFT.setFont(font_orla);
+			myVigorTFT.setFont(font_pico);
 			myVigorTFT.print("ich han saumässig hunger, gange aber glaub jetzt no go jogge");
 			break;
 		case Semi:
