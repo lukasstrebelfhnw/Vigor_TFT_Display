@@ -27,7 +27,7 @@
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
 // Variables :: Defines
-#define cycleTimeMs 500 // Zykluszeit in Millisekunden
+#define cycleTimeMs 3000 // Zykluszeit in Millisekunden
 
 // Section :: Globals
 // ST7789_TFT myTFT;
@@ -73,35 +73,35 @@ int main()
 			std::cout << "INIT" << std::endl;
 			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.setCursor(5, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
 			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Init");
+			myVigorTFT.print("Hoi Jana");
 			// delayMilliSecRVL(7000);
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
 			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.setCursor(5, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
 			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Init");
+			myVigorTFT.print("hesch au schochli hunger?");
 			break;
 		case Auto:
 			std::cout << "Auto State\n";
 			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.setCursor(5, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
 			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, vigorLGreen); // first text last background
 			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Kalibrieren");
+			myVigorTFT.print("ich han saumässig hunger, gange aber glaub jetzt no go jogge");
 			break;
 		case Semi:
 			std::cout << "Semi State\n";
@@ -163,7 +163,7 @@ int main()
 		}
 		else if (currentState == Auto)
 		{
-			currentState = Semi;
+			currentState = Init;
 		}
 		else if (currentState == Semi)
 		{
