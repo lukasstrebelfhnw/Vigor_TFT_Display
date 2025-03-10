@@ -14,6 +14,7 @@
 #define backGroundColor 0x9D14
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
+#include "ST7789_TFT_LCD_RVL.hpp"
 #include <string>
 
 // Datatype definitions
@@ -32,7 +33,7 @@ public:
   ~vigorTFT() {};
 
   // Creates Display with text box
-  void createDisplay(ST7789_TFT &myTFT);
+  void createDisplay();
 
   // Set Display parameter
   void setGPS(signalGPS);
