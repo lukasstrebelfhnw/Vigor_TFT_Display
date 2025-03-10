@@ -74,8 +74,7 @@ int main()
 		{
 		case Init:
 			std::cout << "INIT" << std::endl;
-			bool finishedInit = myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion);
-
+			myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";

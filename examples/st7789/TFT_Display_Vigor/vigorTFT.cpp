@@ -17,7 +17,7 @@ vigorTFT::~vigorTFT()
 	delete myVigorTFT;
 }
 
-bool vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
@@ -49,10 +49,6 @@ bool vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->setFont(versionFont);													// select font
 	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->print(versionVigor);
-	if (counter == 100)
-	{
-		return true;
-	}
 }
 
 void vigorTFT::createDisplay()
