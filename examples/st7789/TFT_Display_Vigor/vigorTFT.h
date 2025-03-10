@@ -5,6 +5,7 @@
 #ifndef VIGORTFT_H
 #define VIGORTFT_H
 
+/*
 // Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
 #define buttonGrey 0x52EC
 #define buttonAuto 0x1389
@@ -18,6 +19,7 @@
 #include <ctime>                    // for test301
 #include "Bi_Color_Bitmap_Data.hpp" // Data for test 301-302
 #include <string>
+*/
 
 // Datatype definitions
 using message = std::string;

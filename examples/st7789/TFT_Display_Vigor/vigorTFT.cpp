@@ -4,12 +4,16 @@
 
 #include "vigorTFT.h"
 #include <ctime>
-#include "Bi_Color_Bitmap_Data.hpp"
 #include <chrono>
 #include <thread>
-#include "../../include/font_data_RVL.hpp"
-#include "ST7789_TFT_LCD_RVL.hpp"
 #include <string>
+#include "ST7789_TFT_LCD_RVL.hpp"
+#include "Bi_Color_Bitmap_Data.hpp"
+/*
+#include "font_data_RVL.hpp"
+#include "print_data_RVL.hpp"
+*/
+
 // Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
 #define buttonGrey 0x52EC
 #define buttonAuto 0x1389
@@ -34,9 +38,8 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
-	uint8_t versionFont = font_retro;
-	uint8_t versionFontHight = 16;
-	uint8_t versionFontWidth = 8;
+	uint8_t versionFontHight = 16; // font_retro 16
+	uint8_t versionFontWidth = 8;  // font_retro 8
 	// End Font definitions
 
 	// Set Display parameter
@@ -47,19 +50,18 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	uint16_t loadingBarHight = 2 * versionFontHight;
 	uint16_t loadingBarWidth = myTFTWidth - (4 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
-	uint16_t counter;
 
 	// Buils Display
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-	this->fillScreen(backgroundColor);
+	this->fillScreen(backGroundColor);
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
-	for (counter = 0; i < 100; i++) // for-loop for loading bar
+	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar(x * 2, y + bitMapHeight + spaceMean, loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
 	this->setCursor(x * 3, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
-	this->setFont(versionFont);													// select font
+	this->setFont(font_retro);													// select font
 	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->print(versionVigor);
 }
