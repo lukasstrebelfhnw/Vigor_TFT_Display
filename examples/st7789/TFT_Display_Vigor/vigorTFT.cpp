@@ -105,6 +105,54 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
+	std::cout << "BMPPicture: 16 bit color image bitmaps from file " << path << std::endl;
+	this->fillScreen(RVLC_BLACK);
+
+	FILE *pFile = fopen(path, "rb");
+	if (pFile == nullptr)
+	{
+		std::cout << "Error: File does not exist -> " << path << std::endl;
+		return;
+	}
+
+	// Lese Bilddaten-Offset aus BMP-Header
+	fseek(pFile, 10, SEEK_SET);
+	uint32_t dataOffset = 0;
+	fread(&dataOffset, sizeof(dataOffset), 1, pFile);
+	fseek(pFile, dataOffset, SEEK_SET);
+
+	size_t pixelCount = bitMapWidth * bitMapHeight;
+	size_t bufferSize = pixelCount * 2;
+
+	uint8_t *bmpBuffer = (uint8_t *)malloc(bufferSize);
+	if (bmpBuffer == nullptr)
+	{
+		std::cout << "Error: Could not allocate memory" << std::endl;
+		fclose(pFile);
+		return;
+	}
+
+	size_t readBytes = fread(bmpBuffer, 1, bufferSize, pFile);
+	fclose(pFile);
+
+	if (readBytes != bufferSize)
+	{
+		std::cout << "Error: Unexpected file size (" << readBytes << " bytes read, expected " << bufferSize << ")" << std::endl;
+		free(bmpBuffer);
+		return;
+	}
+
+	if (this->drawBitmap16(x, y, bmpBuffer, bitMapWidth, bitMapHeight) != rvlDisplay_Success)
+	{
+		std::cout << "Warning: An error occurred in drawBitmap16" << std::endl;
+	}
+
+	free(bmpBuffer);
+}
+
+/*
+void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
+{
 	std::cout << "BMPPicture: 16 bit color image bitmaps from the file system 240 X 320" << std::endl;
 	this->fillScreen(RVLC_BLACK);
 
@@ -141,7 +189,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 
 	free(bmpBuffer);
 }
-
+*/
 void vigorTFT::setGPS(signalGPS)
 {
 }
