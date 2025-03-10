@@ -16,8 +16,7 @@
 #include <thread>
 #include "vigorTFT.h"
 
-// Section ::  Defines
-
+// Color ::  Defines
 #define buttonGrey 0x52EC
 #define buttonAuto 0x1389
 #define buttonSemi 0xB666
@@ -26,13 +25,16 @@
 #define backgroundColor 0x9D14
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
-// Variables :: Defines
+// Delay :: Defines
 #define cycleTimeMs 3000 // Zykluszeit in Millisekunden
+// Picture ::  Defines
+#define logoVigorWidth 240	// Set Width of Picture
+#define logoVigorHeight 122 // Set Height of Picture
+#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg.bmp";
+// Temporary ::  Defines
+#define vigorVersion "Vigor TFT version 1.0"
 
-// Section :: Globals
-// ST7789_TFT myTFT;
 vigorTFT myVigorTFT;
-// vigorTFT myVigorTFT;
 
 // Display size in pixels
 #define myTFTWidth 240
@@ -58,6 +60,7 @@ enum State
 int main()
 {
 	// Initialisierung
+	bool finishedInit = false; // Flag für Initialisierung
 	State currentState = Init;
 
 	if (SetupHWSPI() != 0)
@@ -71,15 +74,8 @@ int main()
 		{
 		case Init:
 			std::cout << "INIT" << std::endl;
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(5, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Hoi Lukas");
-			// delayMilliSecRVL(7000);
+			bool finishedInit = myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion);
+
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
@@ -155,6 +151,10 @@ int main()
 		// Nächsten Zustand bestimmen only for testing
 		if (currentState == Init)
 		{
+			if (finishedInit)
+			{
+				currentState = Kalibrieren;
+			}
 			currentState = Kalibrieren;
 		}
 		else if (currentState == Kalibrieren)

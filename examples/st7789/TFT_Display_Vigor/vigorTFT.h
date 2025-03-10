@@ -15,6 +15,8 @@
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
 #include "ST7789_TFT_LCD_RVL.hpp"
+#include <ctime>                    // for test301
+#include "Bi_Color_Bitmap_Data.hpp" // Data for test 301-302
 #include <string>
 
 // Datatype definitions
@@ -29,11 +31,19 @@ class vigorTFT : public ST7789_TFT
 {
 private:
 public:
+  // Attributes
+  vigorTFT myVigorTFT;
+  // Constructor and Destructor
   vigorTFT();
-  ~vigorTFT() {};
+  ~vigorTFT();
 
-  // Creates Display with text box
+  // Creates Display Methods
+  bool  createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
   void createDisplay();
+  void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
+  void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
+  // Set Bitmap Picture
+  void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
 
   // Set Display parameter
   void setGPS(signalGPS);
