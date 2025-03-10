@@ -9,12 +9,12 @@
 
 vigorTFT::vigorTFT()
 {
-	myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
+	// myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
 }
 
 vigorTFT::~vigorTFT()
 {
-	delete myVigorTFT;
+	// delete myVigorTFT;
 }
 
 void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)

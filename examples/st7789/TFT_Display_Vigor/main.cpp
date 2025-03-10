@@ -62,7 +62,7 @@ int main()
 	// Initialisierung
 	bool finishedInit = false; // Flag für Initialisierung
 	State currentState = Init;
-	myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
+	// myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
 
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0

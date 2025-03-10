@@ -31,8 +31,6 @@ class vigorTFT : public ST7789_TFT
 {
 private:
 public:
-  // Attributes
-  vigorTFT myVigorTFT;
   // Constructor and Destructor
   vigorTFT();
   ~vigorTFT();
