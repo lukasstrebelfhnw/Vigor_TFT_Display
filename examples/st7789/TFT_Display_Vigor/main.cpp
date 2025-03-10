@@ -71,7 +71,7 @@ int main()
 		{
 		case Init:
 			std::cout << "INIT" << std::endl;
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -83,7 +83,7 @@ int main()
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -94,7 +94,7 @@ int main()
 			break;
 		case Auto:
 			std::cout << "Auto State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -105,7 +105,7 @@ int main()
 			break;
 		case Semi:
 			std::cout << "Semi State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -116,7 +116,7 @@ int main()
 			break;
 		case Manuell:
 			std::cout << "Manuell State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -127,7 +127,7 @@ int main()
 			break;
 		case Randstreuen:
 			std::cout << "Randstreuen State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -138,7 +138,7 @@ int main()
 			break;
 		case Error:
 			std::cout << "Error State\n";
-			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(160, 120);
 			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
@@ -234,9 +234,9 @@ uint8_t SetupHWSPI(void)
 
 void EndTests(void)
 {
-	myTFT.fillScreen(RVLC_BLACK);
-	myTFT.TFTPowerDown(); // Power down device
-	bcm2835_close();	  // Close the bcm2835 library
+	myVigorTFT.fillScreen(RVLC_BLACK);
+	myVigorTFT.TFTPowerDown(); // Power down device
+	bcm2835_close();		   // Close the bcm2835 library
 	std::cout << "TFT End" << std::endl;
 }
 
