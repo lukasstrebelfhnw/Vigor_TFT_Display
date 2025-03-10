@@ -11,7 +11,7 @@
 # Comment out the others.
 
 # =============== ST7789 TFT LCD SPI =============
-SRC=st7789/Hello_world_HWSPI_0
+SRC=st7789/TFT_Display_Vigor
 #SRC=st7789/Hello_world_HWSPI_1
 #SRC=st7789/Hello_world_SWSPI
 #SRC=st7789/Text_Graphics_Functions
