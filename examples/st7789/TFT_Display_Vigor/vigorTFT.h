@@ -5,7 +5,18 @@
 #ifndef VIGORTFT_H
 #define VIGORTFT_H
 
+#include "vigorTFT.h"
+#include <ctime>
+#include <chrono>
+#include <thread>
+#include <string>
+#include "ST7789_TFT_LCD_RVL.hpp"
+#include "Bi_Color_Bitmap_Data.hpp"
 /*
+#include "font_data_RVL.hpp"
+#include "print_data_RVL.hpp"
+*/
+
 // Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
 #define buttonGrey 0x52EC
 #define buttonAuto 0x1389
@@ -15,11 +26,6 @@
 #define backGroundColor 0x9D14
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
-#include "ST7789_TFT_LCD_RVL.hpp"
-#include <ctime>                    // for test301
-#include "Bi_Color_Bitmap_Data.hpp" // Data for test 301-302
-#include <string>
-*/
 
 // Datatype definitions
 using message = std::string;
