@@ -11,7 +11,10 @@
 // Section ::  libraries
 #include <bcm2835.h>
 #include "ST7789_TFT_LCD_RVL.hpp"
-// #include "vigorTFT.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include "vigorTFT.h"
 
 // Section ::  Defines
 
@@ -20,12 +23,15 @@
 #define buttonSemi 0xB666
 #define buttonMan 0xFE88
 #define buttonRand 0x543A
-#define backGroundColor 0x9D14
+#define backgroundColor 0x9D14
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
+// Variables :: Defines
+#define cycleTimeMs 500 // Zykluszeit in Millisekunden
 
 // Section :: Globals
-ST7789_TFT myTFT;
+// ST7789_TFT myTFT;
+vigorTFT myVigorTFT;
 // vigorTFT myVigorTFT;
 
 // Display size in pixels
@@ -35,19 +41,150 @@ ST7789_TFT myTFT;
 //  Section ::  Function Headers
 
 uint8_t SetupHWSPI(void); // setup + user options for hardware SPI 0
-void HelloWorld(void);
 void EndTests(void);
 
 //  Section ::  MAIN loop
+enum State
+{
+	Init,
+	Kalibrieren,
+	Auto,
+	Semi,
+	Manuell,
+	Randstreuen,
+	Error
+};
 
 int main()
 {
+	// Initialisierung
+	State currentState = Init;
 
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0
-	// createDisplay(myTFT &); // Create display
-	HelloWorld();
-	EndTests();
+
+	// Endlosschleife für die State-Machine
+	while (true)
+	{
+		// Verarbeite aktuellen Zustand
+		switch (currentState)
+		{
+		case Init:
+			std::cout << "INIT" << std::endl;
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Init");
+			// delayMilliSecRVL(7000);
+			break;
+		case Kalibrieren:
+			std::cout << "Kalibrieren State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Init");
+			break;
+		case Auto:
+			std::cout << "Auto State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, vigorLGreen); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Kalibrieren");
+			break;
+		case Semi:
+			std::cout << "Semi State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, buttonSemi); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Semi");
+			break;
+		case Manuell:
+			std::cout << "Manuell State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, buttonMan); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Manuell");
+			break;
+		case Randstreuen:
+			std::cout << "Randstreuen State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Randstreuen");
+			break;
+		case Error:
+			std::cout << "Error State\n";
+			myVigorTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
+			myVigorTFT.fillScreen(backgroundColor);
+			myVigorTFT.setCursor(160, 120);
+			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
+			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
+			myVigorTFT.setTextColor(buttonAuto, vigorDGreen); // first text last background
+			myVigorTFT.setFont(font_orla);
+			myVigorTFT.print("Init");
+			break;
+		default:
+			std::cout << "Unknown State\n";
+			break;
+		}
+
+		// Nächsten Zustand bestimmen only for testing
+		if (currentState == Init)
+		{
+			currentState = Kalibrieren;
+		}
+		else if (currentState == Kalibrieren)
+		{
+			currentState = Auto;
+		}
+		else if (currentState == Auto)
+		{
+			currentState = Semi;
+		}
+		else if (currentState == Semi)
+		{
+			currentState = Manuell;
+		}
+		else if (currentState == Manuell)
+		{
+			currentState = Randstreuen;
+		}
+		else if (currentState == Randstreuen)
+		{
+			currentState = Error;
+		}
+		else
+		{
+			currentState = Init; // Fehlerbehandlung und Neustart
+		}
+
+		// Warten gemäß Zykluszeit
+		std::this_thread::sleep_for(std::chrono::milliseconds(cycleTimeMs));
+	}
 	return 0;
 }
 // *** End OF MAIN **
@@ -57,7 +194,7 @@ int main()
 // Hardware SPI setup
 uint8_t SetupHWSPI(void)
 {
-	std::cout << "TFT Start Test 101 HW SPI 0" << std::endl;
+	std::cout << "TFT_Display_Vigor" << std::endl;
 	if (!bcm2835_init())
 	{
 		std::cout << "Error 1201 Problem with init bcm2835 library" << std::endl;
@@ -67,7 +204,8 @@ uint8_t SetupHWSPI(void)
 	// ** USER OPTION 1 GPIO HW SPI **
 	int8_t RST_TFT = 25;
 	int8_t DC_TFT = 24;
-	myTFT.TFTSetupGPIO(RST_TFT, DC_TFT);
+	// myTFT.TFTSetupGPIO(RST_TFT, DC_TFT);
+	myVigorTFT.TFTSetupGPIO(RST_TFT, DC_TFT);
 	//*********************************************
 
 	// ** USER OPTION 2 Screen SetupHWSPI **
@@ -75,13 +213,14 @@ uint8_t SetupHWSPI(void)
 	uint16_t OFFSET_ROW = 0;		   // with manufacture tolerance/defects at edge of display
 	uint16_t TFT_WIDTH = myTFTWidth;   // Screen width in pixels
 	uint16_t TFT_HEIGHT = myTFTHeight; // Screen height in pixels
-	myTFT.TFTInitScreenSize(OFFSET_COL, OFFSET_ROW, TFT_WIDTH, TFT_HEIGHT);
+	// myTFT.TFTInitScreenSize(OFFSET_COL, OFFSET_ROW, TFT_WIDTH, TFT_HEIGHT);
+	myVigorTFT.TFTInitScreenSize(OFFSET_COL, OFFSET_ROW, TFT_WIDTH, TFT_HEIGHT);
 	// ***********************************
 
 	// ** USER OPTION 3 SPI baud rate + SPI_CE_PIN**
-	uint32_t SCLK_FREQ = 8000000; //  freq in Hertz , MAX 125 Mhz MIN 30Khz
-	uint8_t SPI_CE_PIN = 0;		  // which HW SPI chip enable pin to use,  0 or 1
-	if (myTFT.TFTInitSPI(SCLK_FREQ, SPI_CE_PIN) != rvlDisplay_Success)
+	uint32_t SCLK_FREQ = 8000000;											//  freq in Hertz , MAX 125 Mhz MIN 30Khz
+	uint8_t SPI_CE_PIN = 0;													// which HW SPI chip enable pin to use,  0 or 1
+	if (myVigorTFT.TFTInitSPI(SCLK_FREQ, SPI_CE_PIN) != rvlDisplay_Success) // If there is a problem, undo myVigorTFT to myTFT
 	{
 		bcm2835_close(); // Close lib & /dev/mem, deallocating mem
 		return 3;
@@ -91,22 +230,6 @@ uint8_t SetupHWSPI(void)
 	std::cout << "bcm2835 library version :" << bcm2835_version() << std::endl;
 	delayMilliSecRVL(100);
 	return 0;
-}
-
-void HelloWorld(void)
-{
-	std::cout << "Hello World" << std::endl;
-	myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
-	myTFT.fillScreen(vigorLGreen);
-	myTFT.setCursor(42, 60);
-	myTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-	myTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-	myTFT.setTextColor(RVLC_WHITE, RVLC_BLACK);
-	myTFT.setFont(font_groTesk);
-	myTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-	myTFT.setFont(font_orla);
-	myTFT.print("Hello Kathrin");
-	delayMilliSecRVL(7000);
 }
 
 void EndTests(void)

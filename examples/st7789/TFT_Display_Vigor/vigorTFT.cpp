@@ -9,11 +9,11 @@ vigorTFT::vigorTFT()
 {
 }
 
-void vigorTFT::createDisplay(ST7789_TFT &myTFT)
+void vigorTFT::createInitDisplay(ST7789_TFT &myTFT)
 {
-    std::cout << "Hello World" << std::endl;
+    std::cout << "Init" << std::endl;
     myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
-    myTFT.fillScreen(vigorLGreen);
+    myTFT.fillScreen(backGroundColor);
     myTFT.setCursor(42, 60);
     myTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
     myTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
