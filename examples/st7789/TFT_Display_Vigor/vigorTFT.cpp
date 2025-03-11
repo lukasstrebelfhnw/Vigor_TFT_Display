@@ -93,7 +93,7 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	this->drawRectWH(x, y, w, h, colorFrame);
-	this->drawRectWH(x + lineThickness, y + lineThickness, barValue * ((w - 2 * lineThickness) / 100), (h - 2 * lineThickness), colorBackgroung);
+	this->drawRectWH(x + lineThickness, y + lineThickness, barValue * ((w - 2 * lineThickness) / 100), (h - 2* lineThickness), colorBackgroung);
 	if (showValue)
 	{
 		this->setFont(font_orla);							   // select font
@@ -106,7 +106,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
 	std::cout << "BMPPicture: 16 bit color image bitmaps from file " << path << std::endl;
-	this->fillScreen(RVLC_BLACK);
+	//this->fillScreen(RVLC_BLACK);
 
 	FILE *pFile = fopen(path, "rb");
 	if (pFile == nullptr)
