@@ -28,7 +28,7 @@ MAKEFLAGS += --no-print-directory
 
 # Pre-compiler and Compiler and linker flags
 LDFLAGS= -lbcm2835 -lrpist7789gl
-CFLAGS= -Iinclude/ -c -Wall -Wextra -std=c++20
+CFLAGS= -Iinclude/ -c -Wall -Wextra -std=c++20 -g
 #CFLAGS= -Iinclude/ -Ist7789/ -c -Wall -Wextra -std=c++20 #Anpassung Lukas
 
 # Build directories and output

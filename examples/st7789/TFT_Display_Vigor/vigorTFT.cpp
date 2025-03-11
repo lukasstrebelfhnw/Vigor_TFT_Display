@@ -34,7 +34,7 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, char *path, char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
@@ -103,7 +103,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	}
 }
 
-void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
+void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, char *path)
 {
 	std::cout << "BMPPicture: 16 bit color image bitmaps from file " << path << std::endl;
 	this->fillScreen(RVLC_BLACK);

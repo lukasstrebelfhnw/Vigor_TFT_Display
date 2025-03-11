@@ -34,7 +34,7 @@
 // Temporary ::  Defines
 #define vigorVersion "Vigor TFT version 1.0"
 
-vigorTFT myVigorTFT; // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
+vigorTFT myVigorTFT; 
 
 // Display size in pixels
 #define myTFTWidth 240
