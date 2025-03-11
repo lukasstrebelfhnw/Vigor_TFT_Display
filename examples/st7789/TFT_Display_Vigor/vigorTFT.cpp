@@ -34,7 +34,7 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, char *path, char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
@@ -57,8 +57,8 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, ch
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x * 2, y + bitMapHeight + spaceMean, loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	this->setCursor(x * 3, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
@@ -93,7 +93,7 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	this->drawRectWH(x, y, w, h, colorFrame);
-	this->drawRectWH(x + lineThickness, y + lineThickness, barValue, h - 2 * lineThickness, colorBackgroung);
+	this->drawRectWH(x + lineThickness, y + lineThickness, barValue * ((w - 2 * lineThickness) / 100), (h - 2 * lineThickness), colorBackgroung);
 	if (showValue)
 	{
 		this->setFont(font_orla);							   // select font
@@ -103,7 +103,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	}
 }
 
-void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, char *path)
+void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
 	std::cout << "BMPPicture: 16 bit color image bitmaps from file " << path << std::endl;
 	this->fillScreen(RVLC_BLACK);
