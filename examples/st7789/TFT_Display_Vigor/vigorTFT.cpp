@@ -46,7 +46,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	uint16_t versionText_x; // Set x Poition Logo effective Value left top corner Display
 	uint16_t versionText_y; // Set y Poition Logo effective Value left top corner Display
 	uint16_t x = 40;		// Set x Poition Logo effective Value left top corner Display
-	uint16_t y = 40;		// Set y Poition Logo effective Value left top corner Display
+	uint16_t y = 20;		// Set y Poition Logo effective Value left top corner Display
 	uint16_t loadingBarHight = 2 * versionFontHight;
 	uint16_t loadingBarWidth = myTFTWidth - (4 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
@@ -55,15 +55,15 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
-	for (int i = 0; i < 100; i++) // for-loop for loading bar
-	{
-		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	}
 	this->setCursor(x * 3, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
 	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->print(versionVigor);
+	for (int i = 0; i < 100; i++) // for-loop for loading bar
+	{
+		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	}
 }
 
 void vigorTFT::createDisplay()
@@ -140,6 +140,16 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 		std::cout << "Error: Unexpected file size (" << readBytes << " bytes read, expected " << bufferSize << ")" << std::endl;
 		free(bmpBuffer);
 		return;
+	}
+
+	// **Weiß ersetzen (RGB565: 0xFFFF)**
+	for (size_t i = 0; i < pixelCount; i++)
+	{
+		uint16_t *pixel = (uint16_t *)&bmpBuffer[i * 2];
+		if (*pixel == 0xFFFF) // Wenn der Pixel weiß ist
+		{
+			*pixel = backGroundColor; // Ersetze durch die gewählte Farbe
+		}
 	}
 
 	if (this->drawBitmap16(x, y, bmpBuffer, bitMapWidth, bitMapHeight) != rvlDisplay_Success)
