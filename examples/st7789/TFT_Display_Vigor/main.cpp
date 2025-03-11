@@ -30,11 +30,11 @@
 // Picture ::  Defines
 #define logoVigorWidth 240	// Set Width of Picture
 #define logoVigorHeight 122 // Set Height of Picture
-#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg.bmp"
+#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
 // Temporary ::  Defines
 #define vigorVersion "Vigor TFT version 1.0"
 
-vigorTFT myVigorTFT; 
+vigorTFT myVigorTFT;
 
 // Display size in pixels
 #define myTFTWidth 240
