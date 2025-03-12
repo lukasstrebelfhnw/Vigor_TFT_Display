@@ -81,23 +81,23 @@ build:
 # Run task
 .PHONY: run
 run:
-        sudo $(TARGET)
+		sudo $(TARGET)
 
 # Clean task
 .PHONY: clean
 clean:
-        @echo 'CLEANUP!'
-        rm -rvf $(BUILD)
-        rm -rvf $(BIN)
-        @echo '****************'
+		@echo 'CLEANUP!'
+		rm -rvf $(BUILD)
+		rm -rvf $(BIN)
+		@echo '****************'
 
 # help task : print help to explains the options
 .PHONY: help
 help:
-        @echo 'HELP!'
-        @echo "make      - Cleans + builds project"
-        @echo "make clean - Removes object file folder and executable"
-        @echo "make build - Complies and Builds project"
-        @echo "make run    - Runs exe(wraps sudo, bcm2835 lib needs sudo)"
-        @echo "make help   - Prints help message"
-        @echo '***************'
+		@echo 'HELP!'
+		@echo "make      - Cleans + builds project"
+		@echo "make clean - Removes object file folder and executable"
+		@echo "make build - Complies and Builds project"
+		@echo "make run    - Runs exe(wraps sudo, bcm2835 lib needs sudo)"
+		@echo "make help   - Prints help message"
+		@echo '***************'
