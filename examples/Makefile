@@ -56,9 +56,12 @@ $(TARGET): $(OBJS) $(BUILD)
 	@echo 'DONE!'
 
 # Compile all cpp files
-$(BUILD)/%.o :  $(SRC)/%.cpp   $(BUILD)
+#$(BUILD)/%.o :  $(SRC)/%.cpp   $(BUILD)
+#	@echo 'MAKE OBJECT FILE'
+#	$(CXX) $(CFLAGS) $< -o  $@
+$(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
 	@echo 'MAKE OBJECT FILE'
-	$(CXX) $(CFLAGS) $< -o  $@
+	$(CXX) $(CFLAGS) -o $@ $<
 
 
 # Build task
