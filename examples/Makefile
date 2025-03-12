@@ -27,9 +27,10 @@ SRC=st7789/TFT_Display_Vigor
 MAKEFLAGS += --no-print-directory
 
 # Pre-compiler and Compiler and linker flags
-LDFLAGS= -lbcm2835 -lrpist7789gl
-CFLAGS= -Iinclude/ -c -Wall -Wextra -std=c++20 -g
-#CFLAGS= -Iinclude/ -Ist7789/ -c -Wall -Wextra -std=c++20 #Anpassung Lukas
+LDFLAGS= -lbcm2835 -lrpist7789gl -lhiredis
+CFLAGS= -Iinclude/ -I/usr/include/hiredis -c -Wall -Wextra -std=c++20 -
+#CFLAGS= -Iinclude/ -c -Wall -Wextra -std=c++20 -g
+
 
 # Build directories and output
 MD=mkdir
