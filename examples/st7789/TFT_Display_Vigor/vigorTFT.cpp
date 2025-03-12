@@ -91,24 +91,48 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
 }
 
-void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
+void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
+	display_Font_name_e font = font_orla;
+	uint16_t effectiveBarHeight = this->getFontSizeHeight(&font);
+	uint16_t effectiveBarWidth = w - 2 * lineThickness;
 	this->fillRectangle(x, y, w, h, colorFrame);
 
 	// Override the inner rectangle with the background color
-	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
+	// this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
 
 	if (showValue)
 	{
-		this->setFont(font_orla);
-		this->setTextColor(colorFrame);
-		this->setCursor(x + lineThickness, y + lineThickness);
-		this->print(std::to_string(barValue) + "%");
-	}
+		effectiveBarWidth = w - 4 * this->getFontSizeWidth(&font);
+		if ((effectiveBarHeight - 2) >= h)
+		{
+			std::cout << "Error: Bar size height is too small" << std::endl;
+			return;
+		}
+		if (2 * effectiveBarWidth > w)
+		{
+			std::cout << "Error: Bar size width is too small" << std::endl;
+			return;
+		}
+		else
+		{
 
-	// Print progress bar
-	uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
-	this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
+			uint16_t filledWidth = (barValue * effectiveBarWidth) / 100;
+			lineThickness = (w - effectiveBarHeight) / 2;
+			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth - 2 * lineThickness, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
+			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);								   // Print progress bar
+			this->setFont(font);																																	   // select font
+			this->setTextColor(colorBar, colorFrame);
+			this->setCursor(x + lineThickness, y + lineThickness);
+			this->print(std::to_string(barValue) + "%");
+		}
+		else
+		{
+			uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
+			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth - 2 * lineThickness, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
+			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);								   // Print progress bar
+		}
+	}
 }
 
 void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
