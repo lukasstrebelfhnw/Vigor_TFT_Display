@@ -75,8 +75,11 @@ int main()
 		{
 		case Init:
 			std::cout << "INIT" << std::endl;
-			myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
+			myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
 			myVigorTFT.createTextBox(10, 10, font_arialBold, buttonAuto, "Vigor TFT");
+			myVigorTFT.createTextBox(10, 25, font_arialBold, buttonAuto, "Vigor TFT");
+			myVigorTFT.createTextBox(10, 40, font_arialBold, buttonAuto, "Vigor TFT");
+			myVigorTFT.createTextBox(10, 55, font_arialBold, buttonAuto, "Vigor TFT");
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
