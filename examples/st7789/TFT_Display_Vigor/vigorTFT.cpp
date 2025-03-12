@@ -64,7 +64,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
-	myTFT.fillScreen(RVLC_BLACK);
+	this->fillScreen(RVLC_BLACK);
 }
 
 void vigorTFT::createDisplay()
@@ -111,7 +111,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	this->drawRectWH(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
 }
 
-void vigorTFT::createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, std::string text)
+void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t textColor, std::string text)
 {
 	this->setCursor(x, y);
 	this->setFont(font);		   // select font
@@ -119,7 +119,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textCo
 	this->print(text);
 }
 
-void vigorTFT::createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
+void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
 {
 	this->setCursor(x, y);
 	this->setFont(font); // select font
