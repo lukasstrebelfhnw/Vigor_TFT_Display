@@ -41,9 +41,9 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 	// Set Display parameter
 
-	uint16_t x = 40; // Set x Poition Logo effective Value left top corner Display
-	uint16_t y = 15; // Set y Poition Logo effective Value left top corner Display
-	uint16_t loadingBarHight = 36;
+	uint16_t x = 40;			   // Set x Poition Logo effective Value left top corner Display
+	uint16_t y = 15;			   // Set y Poition Logo effective Value left top corner Display
+	uint16_t loadingBarHight = 38; // Important if is this value bigger than (fontHigh+1+2*lineThickness)
 	uint16_t loadingBarWidth = myTFTWidth - (2 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
 	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
