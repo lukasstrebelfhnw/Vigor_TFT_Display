@@ -126,10 +126,10 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		{
 
 			uint16_t filledWidth = (barValue * effectiveBarWidth) / 100;
-			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight, colorBackground); // Override the inner rectangle with the background color
-			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight, colorBar);			   // Print progress bar
-			this->setFont(font);																							   // select font
-			this->setTextColor(RVLC_BLACK, colorFrame);
+			// this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight, colorBackground); // Override the inner rectangle with the background color
+			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight, colorBar); // Print progress bar
+			this->setFont(font);																				  // select font
+			this->setTextColor(colorBar, colorFrame);
 			this->setCursor(x + 2 * lineThickness + effectiveBarWidth, y + lineThickness);
 			this->print(std::to_string(barValue) + "%");
 		}
