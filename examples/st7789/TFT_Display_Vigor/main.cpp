@@ -84,13 +84,11 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_gps", {10, 130, 220, 20}},
 	{"hmi_feldname", {10, 10, 160, 16}}, // max Feldname 10 Zeichen 16x16
 	{"hmi_state", {10, 130, 220, 20}},
-	{
-		"hmi_fehler",
-		{10, 130, 220, 20} {"hmi_button1", {10, 130, 220, 20}},
-		{"hmi_button2", {10, 130, 220, 20}},
-		{"hmi_button3", {10, 130, 220, 20}},
-		{"hmi_button4", {10, 130, 220, 20}},
-	};
+	{"hmi_fehler", {10, 130, 220, 20}},
+	{"hmi_button1", {10, 130, 220, 20}},
+	{"hmi_button2", {10, 130, 220, 20}},
+	{"hmi_button3", {10, 130, 220, 20}},
+	{"hmi_button4", {10, 130, 220, 20}}};
 
 // Function to read from Redis
 typedef std::unordered_map<std::string, std::string> RedisData;
@@ -141,7 +139,7 @@ void runHMIStateMachine(HMIState state)
 	case HMIState::STARTUP:
 		std::cout << "State: StartUp" << std::endl;
 		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-		HMIState currentState = HMIState::INIT;
+		currentState = HMIState::INIT;
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
