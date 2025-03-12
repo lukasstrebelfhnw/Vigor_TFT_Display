@@ -45,148 +45,116 @@ vigorTFT myVigorTFT;
 uint8_t SetupHWSPI(void); // setup + user options for hardware SPI 0
 void EndTests(void);
 
-//  Section ::  MAIN loop
-enum State
+// HMI States
+enum class HMIState
 {
-	Init,
-	Kalibrieren,
-	Auto,
-	Semi,
-	Manuell,
-	Randstreuen,
-	Error
+	STARTUP,
+	INIT,
+	CALIB,
+	MANUAL_L,
+	MANUAL_R,
+	SEMI,
+	AUTO,
+	EDGE_L,
+	EDGE_R,
+	ERROR
 };
+
+// Function to read from Redis
+typedef std::unordered_map<std::string, std::string> RedisData;
+RedisData readRedis()
+{
+	redisContext *c = redisConnect("127.0.0.1", 6379);
+	RedisData data;
+	if (c == nullptr || c->err)
+	{
+		std::cerr << "Redis Connection Error" << std::endl;
+		return data;
+	}
+	std::vector<std::string> keys = {
+		"hmi_vend_ist", "hmi_vend_soll", "hmi_pos_l", "hmi_pos_r",
+		"hmi_soll_l", "hmi_soll_r", "hmi_feldname", "hmi_speed",
+		"hmi_gps", "hmi_state", "hmi_fehler"};
+	for (const auto &key : keys)
+	{
+		redisReply *reply = (redisReply *)redisCommand(c, "GET %s", key.c_str());
+		if (reply && reply->type == REDIS_REPLY_STRING)
+		{
+			data[key] = reply->str;
+		}
+		freeReplyObject(reply);
+	}
+	redisFree(c);
+	return data;
+}
+
+/*
+// Function to update display
+void updateDisplay(const RedisData& data) {
+	myVigorTFT.fillScreen(ST77XX_BLACK);
+	int y = 10;
+	for (const auto& [key, value] : data) {
+		myTFT.drawText(10, y, key + ": " + value, ST77XX_WHITE, ST77XX_BLACK);
+		y += 20;
+	}
+}
+*/
+
+// State Machine Execution
+void runHMIStateMachine(HMIState state)
+{
+	RedisData data = readRedis();
+	switch (state)
+	{
+	case HMIState::STARTUP:
+		std::cout << "State: StartUp" << std::endl;
+		vigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::INIT:
+		std::cout << "State: Init" << std::endl;
+		break;
+	case HMIState::CALIB:
+		std::cout << "State: Calib" << std::endl;
+		break;
+	case HMIState::MANUAL_L:
+		std::cout << "State: Manual_L" << std::endl;
+		break;
+	case HMIState::MANUAL_R:
+		std::cout << "State: Manual_R" << std::endl;
+		break;
+	case HMIState::SEMI:
+		std::cout << "State: Semi" << std::endl;
+		break;
+	case HMIState::AUTO:
+		std::cout << "State: Auto" << std::endl;
+		break;
+	case HMIState::EDGE_L:
+		std::cout << "State: Edge_L" << std::endl;
+		break;
+	case HMIState::EDGE_R:
+		std::cout << "State: Edge_R" << std::endl;
+		break;
+	case HMIState::ERROR:
+		std::cout << "State: Error" << std::endl;
+		break;
+	}
+	updateDisplay(data);
+}
 
 int main()
 {
-	// Initialisierung
-	bool finishedInit = true; // Flag für Initialisierung
-	State currentState = Init;
-	// myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
-
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0
 
-	// Endlosschleife für die State-Machine
-	while (finishedInit)
+	HMIState currentState = HMIState::STARTUP;
+	while (true)
 	{
-		// Verarbeite aktuellen Zustand
-		switch (currentState)
-		{
-		case Init:
-			std::cout << "INIT" << std::endl;
-			myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-			myVigorTFT.createTextBox(10, 10, font_arialBold, buttonAuto, "Vigor TFT");
-			myVigorTFT.createTextBox(10, 25, font_arialBold, buttonAuto, "Vigor TFT");
-			myVigorTFT.createTextBox(10, 40, font_arialBold, buttonAuto, "Vigor TFT");
-			myVigorTFT.createTextBox(10, 55, font_arialBold, buttonAuto, "Vigor TFT");
-			finishedInit = false;
-			break;
-		case Kalibrieren:
-			std::cout << "Kalibrieren State\n";
-			myVigorTFT.setCursor(5, 120);
-			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-			myVigorTFT.setFont(font_arialRound);
-			myVigorTFT.print("hesch au schochli hunger?");
-			break;
-		case Auto:
-			std::cout << "Auto State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(5, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, vigorLGreen); // first text last background
-			myVigorTFT.setFont(font_arialBold);
-			myVigorTFT.print("ich han saumässig hunger, gange aber glaub jetzt no go jogge");
-			break;
-		case Semi:
-			std::cout << "Semi State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, buttonSemi); // first text last background
-			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Semi");
-			break;
-		case Manuell:
-			std::cout << "Manuell State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, buttonMan); // first text last background
-			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Manuell");
-			break;
-		case Randstreuen:
-			std::cout << "Randstreuen State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Randstreuen");
-			break;
-		case Error:
-			std::cout << "Error State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
-			myVigorTFT.setCursor(160, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-			myVigorTFT.setTextColor(buttonAuto, vigorDGreen); // first text last background
-			myVigorTFT.setFont(font_orla);
-			myVigorTFT.print("Init");
-			break;
-		default:
-			std::cout << "Unknown State\n";
-			break;
-		}
-
-		// Nächsten Zustand bestimmen only for testing
-		if (currentState == Init)
-		{
-			if (finishedInit)
-			{
-				currentState = Kalibrieren;
-			}
-		}
-		else if (currentState == Kalibrieren)
-		{
-			currentState = Auto;
-		}
-		else if (currentState == Auto)
-		{
-			currentState = Init;
-		}
-		else if (currentState == Semi)
-		{
-			currentState = Manuell;
-		}
-		else if (currentState == Manuell)
-		{
-			currentState = Randstreuen;
-		}
-		else if (currentState == Randstreuen)
-		{
-			currentState = Error;
-		}
-		else
-		{
-			currentState = Init; // Fehlerbehandlung und Neustart
-		}
-
-		// Warten gemäß Zykluszeit
-		std::this_thread::sleep_for(std::chrono::milliseconds(cycleTimeMs));
+		runHMIStateMachine(currentState);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 	return 0;
 }
+
 // *** End OF MAIN **
 
 //  Section ::  Function Space
