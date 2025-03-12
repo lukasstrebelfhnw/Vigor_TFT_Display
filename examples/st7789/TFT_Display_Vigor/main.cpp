@@ -72,7 +72,7 @@ struct TextBox
 	int16_t width;
 	int16_t height;
 };
-
+/*
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {10, 10, 100, 20}},
 	{"hmi_vend_soll", {130, 10, 100, 20}},
@@ -89,7 +89,7 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button2", {10, 130, 220, 20}},
 	{"hmi_button3", {10, 130, 220, 20}},
 	{"hmi_button4", {10, 130, 220, 20}}};
-
+*/
 // Function to read from Redis
 typedef std::unordered_map<std::string, std::string> RedisData;
 RedisData readRedis()
@@ -139,12 +139,11 @@ void runHMIStateMachine(HMIState state)
 	case HMIState::STARTUP:
 		std::cout << "State: StartUp" << std::endl;
 		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-		currentState = HMIState::INIT;
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
-		this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-		this->fillScreen(backGroundColor);
+		myVigorTFT.TFTsetRotation(TFT_Degrees_90); // Rotate the display
+		myVigorTFT.fillScreen(backGroundColor);
 		myVigorTFT.setFont(font_arialBold); // select font
 		myVigorTFT.setTextColor(buttonAuto);
 		myVigorTFT.setCursor(5, 5);
@@ -167,15 +166,15 @@ void runHMIStateMachine(HMIState state)
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_mint); // select font
 		myVigorTFT.setTextColor(buttonAuto);
-		myVigorTFT.setCursor(5, 125);
+		myVigorTFT.setCursor(5, 155);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_default); // select font
 		myVigorTFT.setTextColor(buttonAuto);
-		myVigorTFT.setCursor(5, 155);
+		myVigorTFT.setCursor(5, 185);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_retro); // select font
 		myVigorTFT.setTextColor(buttonAuto);
-		myVigorTFT.setCursor(5, 185);
+		myVigorTFT.setCursor(5, 200);
 		myVigorTFT.print("Hallo RST");
 		break;
 	case HMIState::CALIB:
@@ -216,6 +215,7 @@ int main()
 	{
 		runHMIStateMachine(currentState);
 		std::this_thread::sleep_for(std::chrono::seconds(1));
+		currentState = HMIState::INIT;
 	}
 	return 0;
 }
