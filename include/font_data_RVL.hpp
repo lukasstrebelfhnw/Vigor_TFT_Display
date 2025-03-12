@@ -41,8 +41,7 @@ extern const uint8_t *pFontOrla;
 extern const uint8_t *pFontArialRound;
 extern const uint8_t *pFontGroTesk;
 extern const uint8_t *pFontMint;
-// extern const uint8_t *pFontSixteenSeg;
-extern const uint8_t *pSpaceMonoBold;
+extern const uint8_t *pFontSixteenSeg;
 
 /*! Enum to define current font type selected  */
 enum display_Font_name_e : uint8_t
@@ -61,9 +60,7 @@ enum display_Font_name_e : uint8_t
 	font_arialRound = 12, /**< ArialRound 16by24 */
 	font_groTesk = 13,	  /**< GroTesk 16by32 */
 	font_mint = 14,		  /**< Mint 24by32 */
-	// font_sixteenSeg = 15  /**< Sixteen Segment 32by48 (NUMBERS ONLY + : . -) */
-
-	font_SpaceMonoBold = 15 /**< Sixteen Segment 32by48 (NUMBERS ONLY + : . -) */
+	font_sixteenSeg = 15  /**< Sixteen Segment 32by48 (NUMBERS ONLY + : . -) */
 };
 
 /*! @brief Font class to hold font data object  */
