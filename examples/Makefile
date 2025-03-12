@@ -61,12 +61,12 @@ $(TARGET): $(OBJS) $(BUILD)
 #   @echo 'MAKE OBJECT FILE'
 #   $(CXX) $(CFLAGS) $< -o  $@
 $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
-        @echo 'MAKE OBJECT FILE'
-        $(CXX) $(CFLAGS) -o $@ $<
+		@echo 'MAKE OBJECT FILE'
+		$(CXX) $(CFLAGS) -o $@ $<
 
 $(BUILD)/font_data_RVL.o: font_data_RVL.cpp | $(BUILD)
-        @echo 'MAKE OBJECT FILE font_data_RVL.o'
-        $(CXX) $(CFLAGS) -o $@ $<
+		@echo 'MAKE OBJECT FILE font_data_RVL.o'
+		$(CXX) $(CFLAGS) -o $@ $<
 
 
 # Build task
