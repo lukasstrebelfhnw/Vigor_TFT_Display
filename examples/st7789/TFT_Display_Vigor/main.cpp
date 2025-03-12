@@ -73,26 +73,29 @@ struct TextBox
 	int16_t width;
 	int16_t height;
 };
-/*
+
 std::unordered_map<std::string, TextBox> textBoxes = {
-	{"hmi_vend_ist", {10, 10, 100, 20}},
-	{"hmi_vend_soll", {130, 10, 100, 20}},
-	{"hmi_pos_l", {10, 40, 220, 20}},
-	{"hmi_pos_r", {10, 70, 100, 20}},
+	{"hmi_vend_ist", {10, 96, 128, 48}},  //
+	{"hmi_vend_soll", {10, 96, 128, 48}}, //
+	{"hmi_pos_l", {10, 96, 128, 48}},	  //
+	{"hmi_pos_r", {140, 96, 128, 48}},	  //
 	{"hmi_soll_l", {130, 70, 100, 20}},
 	{"hmi_soll_r", {10, 100, 220, 20}},
-	{"hmi_speed", {10, 130, , 16}},
-	{"hmi_gps", {10, 130, 220, 20}},
-	{"hmi_feldname", {10, 10, 160, 16}}, // max Feldname 10 Zeichen 16x16
+	{"hmi_speed", {10, 214, 88, 16}},	 //
+	{"hmi_gps", {148, 214, 88, 16}},	 //
+	{"hmi_feldname", {10, 10, 120, 16}}, // max Feldname 15 Zeichen 16x16
 	{"hmi_state", {10, 130, 220, 20}},
-	{"hmi_fehler", {10, 130, 220, 20}},
-	{"hmi_button1", {10, 130, 220, 20}},
-	{"hmi_button2", {10, 130, 220, 20}},
-	{"hmi_button3", {10, 130, 220, 20}},
-	{"hmi_button4", {10, 130, 220, 20}}};
-*/
-// Function to read from Redis
-typedef std::unordered_map<std::string, std::string> RedisData;
+	{"hmi_fehler", {16, 16, 288, 32}},		// max Fehler 18 Zeichen 16x32
+	{"hmi_button1_3Z", {262, 14, 48, 32}},	// x max 3 Zeichen
+	{"hmi_button1_1Z", {294, 14, 16, 32}},	// x max 1 Zeichen
+	{"hmi_button2_2Z", {278, 74, 32, 32}},	// x max 2 Zeichen
+	{"hmi_button2_1Z", {294, 74, 16, 32}},	// x max 1 Zeichen
+	{"hmi_button3_2Z", {278, 134, 32, 32}}, // x max 2 Zeichen
+	{"hmi_button4_3Z", {262, 194, 48, 32}}, // x max 3 Zeichen};
+	{"hmi_button4_4Z", {246, 194, 64, 32}}, // x max 4 Zeichen};
+
+	// Function to read from Redis
+	typedef std::unordered_map<std::string, std::string> RedisData;
 RedisData readRedis()
 {
 	redisContext *c = redisConnect("127.0.0.1", 6379);
