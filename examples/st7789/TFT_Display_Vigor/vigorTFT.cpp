@@ -55,10 +55,12 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
+	/*
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
 	this->setTextColor(buttonRand);												// select color
 	this->print(versionVigor);
+	*/
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
@@ -133,7 +135,6 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	}
 	this->print(text);
 }
-
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
