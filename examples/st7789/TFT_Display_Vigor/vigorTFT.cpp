@@ -57,7 +57,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
 	this->setTextColor(buttonRand, backGroundColor);							// select color
-	this->print(versionVigor);
+	this->write(versionVigor);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
@@ -103,7 +103,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		this->setFont(font_orla);
 		this->setTextColor(colorFrame);
 		this->setCursor(x + lineThickness, y + lineThickness);
-		this->print(std::to_string(barValue) + "%");
+		this->write(std::to_string(barValue) + "%");
 	}
 
 	// Print progress bar
@@ -116,7 +116,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	this->setCursor(x, y);
 	this->setFont(font);		   // select font
 	this->setTextColor(textColor); // first text last background
-	this->print(text);
+	this->write(text);
 }
 
 void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
@@ -131,7 +131,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	{
 		this->setTextColor(textColor); // first text last background
 	}
-	this->print(text);
+	this->write(text);
 }
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
