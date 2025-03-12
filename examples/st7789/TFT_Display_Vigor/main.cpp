@@ -169,7 +169,7 @@ void runHMIStateMachine(HMIState state)
 		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 155);
 		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_sevenSeg); // select font
+		myVigorTFT.setFont(font_sixteenSeg); // select font
 		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 195);
 		myVigorTFT.print("123%");
