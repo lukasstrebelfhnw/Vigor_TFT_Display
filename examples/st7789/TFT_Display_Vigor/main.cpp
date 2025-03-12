@@ -60,7 +60,7 @@ enum State
 int main()
 {
 	// Initialisierung
-	bool finishedInit = false; // Flag für Initialisierung
+	bool finishedInit = true; // Flag für Initialisierung
 	State currentState = Init;
 	// myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
 
@@ -68,7 +68,7 @@ int main()
 		return -1; // Hardware SPI 0
 
 	// Endlosschleife für die State-Machine
-	while (true)
+	while (finishedInit)
 	{
 		// Verarbeite aktuellen Zustand
 		switch (currentState)
@@ -80,6 +80,7 @@ int main()
 			myVigorTFT.createTextBox(10, 25, font_arialBold, buttonAuto, "Vigor TFT");
 			myVigorTFT.createTextBox(10, 40, font_arialBold, buttonAuto, "Vigor TFT");
 			myVigorTFT.createTextBox(10, 55, font_arialBold, buttonAuto, "Vigor TFT");
+			finishedInit = false;
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
