@@ -112,7 +112,7 @@ void runHMIStateMachine(HMIState state)
 	{
 	case HMIState::STARTUP:
 		std::cout << "State: StartUp" << std::endl;
-		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
+		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
