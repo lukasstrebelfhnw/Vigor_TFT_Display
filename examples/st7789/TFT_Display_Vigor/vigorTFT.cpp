@@ -55,7 +55,8 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
 
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
-	this->setFont(font_retro);													// select font
+	this->setFont(font_retro);
+	this->setInvertFont(true);													// select font
 	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->write(versionVigor);
 
@@ -101,9 +102,10 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	if (showValue)
 	{
 		this->setFont(font_orla);
+		this->setInvertFont(true);	// Invert font color
 		this->setTextColor(colorFrame);
 		this->setCursor(x + lineThickness, y + lineThickness);
-		this->write(std::to_string(barValue) + "%");
+		this->print(std::to_string(barValue) + "%");
 	}
 
 	// Print progress bar
@@ -116,7 +118,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	this->setCursor(x, y);
 	this->setFont(font);		   // select font
 	this->setTextColor(textColor); // first text last background
-	this->write(text);
+	this->print(text);
 }
 
 void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
@@ -131,7 +133,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	{
 		this->setTextColor(textColor); // first text last background
 	}
-	this->write(text);
+	this->print(text);
 }
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
@@ -191,46 +193,6 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	free(bmpBuffer);
 }
 
-/*
-void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
-{
-	std::cout << "BMPPicture: 16 bit color image bitmaps from the file system 240 X 320" << std::endl;
-	this->fillScreen(RVLC_BLACK);
-
-	FILE *pFile;
-	size_t pixelSize = 2; // 16 bit = 2 Bytes pro Pixel
-	uint8_t FileHeaderOffset = 132;
-	uint8_t *bmpBuffer = nullptr;
-
-	bmpBuffer = (uint8_t *)malloc((bitMapWidth * bitMapHeight) * pixelSize);
-	if (bmpBuffer == nullptr)
-	{
-		std::cout << "Error BMPPicture: MALLOC could not assign memory" << std::endl;
-		return;
-	}
-
-	pFile = fopen(path, "r");
-	if (pFile == nullptr)
-	{
-		std::cout << "Error: File does not exist" << std::endl;
-		free(bmpBuffer);
-		return;
-	}
-
-	fseek(pFile, FileHeaderOffset, SEEK_SET); // Positioniere den Lesezeiger
-	fread(bmpBuffer, pixelSize, bitMapWidth * bitMapHeight, pFile);
-	fclose(pFile);
-
-	if (this->drawBitmap16(x, y, bmpBuffer, bitMapWidth, bitMapHeight) != rvlDisplay_Success)
-	{
-		std::cout << "Warning: An error occurred in drawBitmap16" << std::endl;
-		free(bmpBuffer);
-		return;
-	}
-
-	free(bmpBuffer);
-}
-*/
 void vigorTFT::setGPS(signalGPS)
 {
 }
