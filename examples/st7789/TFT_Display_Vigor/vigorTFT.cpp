@@ -55,15 +55,14 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
 
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
-	this->setFont(font_retro);
-	this->setInvertFont(true);						 // select font
-	this->setTextColor(buttonRand, backGroundColor); // select color
+	this->setFont(font_retro);													// select font
+	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->print(versionVigor);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 	this->fillScreen(RVLC_BLACK);
 }
@@ -88,8 +87,8 @@ void vigorTFT::createDisplay()
 
 void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)
 {
-	this->drawRectWH(x, y, w, w, colorFrame);
-	this->drawRectWH(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
+	this->fillRectangle(x, y, w, w, colorFrame);
+	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
 }
 
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
@@ -97,12 +96,11 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	this->drawRectWH(x, y, w, h, colorFrame);
 
 	// Override the inner rectangle with the background color
-	this->drawRectWH(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
+	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
 
 	if (showValue)
 	{
 		this->setFont(font_orla);
-		this->setInvertFont(true); // Invert font color
 		this->setTextColor(colorFrame);
 		this->setCursor(x + lineThickness, y + lineThickness);
 		this->print(std::to_string(barValue) + "%");
