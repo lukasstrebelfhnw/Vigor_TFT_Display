@@ -28,7 +28,7 @@ MAKEFLAGS += --no-print-directory
 
 # Pre-compiler and Compiler and linker flags
 LDFLAGS= -lbcm2835 -lrpist7789gl -lhiredis
-CFLAGS= -Iinclude/ -I/usr/include/hiredis -c -Wall -Wextra -std=c++20 -
+CFLAGS= -Iinclude/ -I/usr/include/hiredis -c -Wall -Wextra -std=c++20 -g
 #CFLAGS= -Iinclude/ -c -Wall -Wextra -std=c++20 -g
 
 
