@@ -138,7 +138,7 @@ void runHMIStateMachine(HMIState state)
 		std::cout << "State: Error" << std::endl;
 		break;
 	}
-	updateDisplay(data);
+	// updateDisplay(data);
 }
 
 int main()
