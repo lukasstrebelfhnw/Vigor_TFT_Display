@@ -171,11 +171,11 @@ void runHMIStateMachine(HMIState state)
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_sixteenSeg); // select font
 		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 195);
-		myVigorTFT.print("123%");
+		myVigorTFT.setCursor(5, 190);
+		myVigorTFT.print("123");
 		myVigorTFT.setFont(font_retro); // select font
 		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 220);
+		myVigorTFT.setCursor(150, 220);
 		myVigorTFT.print("Hallo RST");
 		break;
 	case HMIState::CALIB:
