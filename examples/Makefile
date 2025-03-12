@@ -72,11 +72,11 @@ $(BUILD)/font_data_RVL.o: font_data_RVL.cpp | $(BUILD)
 # Build task
 .PHONY: build
 build:
-        @echo 'BUILDING: ' $(SRC)
-        $(MD) -vp $(BIN)
-        $(MD) -vp $(BUILD)
-        $(MAKE) $(TARGET)
-        @echo '***************'
+		@echo 'BUILDING: ' $(SRC)
+		$(MD) -vp $(BIN)
+		$(MD) -vp $(BUILD)
+		$(MAKE) $(TARGET)
+		@echo '***************'
 
 # Run task
 .PHONY: run
