@@ -43,7 +43,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 	uint16_t x = 40; // Set x Poition Logo effective Value left top corner Display
 	uint16_t y = 15; // Set y Poition Logo effective Value left top corner Display
-	uint16_t loadingBarHight = 2 * versionFontHight;
+	uint16_t loadingBarHight = 1.5 * versionFontHight;
 	uint16_t loadingBarWidth = myTFTWidth - (2 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
 	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
@@ -61,7 +61,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar((x), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
+		this->createLoadingBar(x, (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 	this->fillScreen(RVLC_BLACK);
@@ -103,13 +103,15 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 
 	if (showValue)
 	{
-		effectiveBarWidth = w - 4 * 8; // this->getFontSizeWidth(&font);
+		uint16_t minBarWidth = 4 * 8 + 2 * lineThickness + 100;
+		lineThickness = (w - effectiveBarHeight) / 2;
+		effectiveBarWidth = w - 4 * 8 - 2 * lineThickness; // this->getFontSizeWidth(&font);
 		if ((effectiveBarHeight - 2) >= h)
 		{
 			std::cout << "Error: Bar size height is too small" << std::endl;
 			return;
 		}
-		if (2 * effectiveBarWidth > w)
+		if (w < minBarWidth)
 		{
 			std::cout << "Error: Bar size width is too small" << std::endl;
 			return;
@@ -118,7 +120,6 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		{
 
 			uint16_t filledWidth = (barValue * effectiveBarWidth) / 100;
-			lineThickness = (w - effectiveBarHeight) / 2;
 			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth - 2 * lineThickness, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
 			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);								   // Print progress bar
 			this->setFont(font);																																	   // select font
