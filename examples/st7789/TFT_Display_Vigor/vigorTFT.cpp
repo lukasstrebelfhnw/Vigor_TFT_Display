@@ -93,7 +93,7 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
-	this->drawRectWH(x, y, w, h, colorFrame);
+	this->fillRectangle(x, y, w, h, colorFrame);
 
 	// Override the inner rectangle with the background color
 	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
@@ -108,7 +108,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 
 	// Print progress bar
 	uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
-	this->drawRectWH(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
+	this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
 }
 
 void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
