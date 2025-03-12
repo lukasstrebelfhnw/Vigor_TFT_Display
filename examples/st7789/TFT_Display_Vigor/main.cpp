@@ -34,7 +34,8 @@
 // Picture ::  Defines
 #define logoVigorWidth 240	// Set Width of Picture
 #define logoVigorHeight 122 // Set Height of Picture
-#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
+// #define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
+#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_Display.BMP"
 // Temporary ::  Defines
 const std::string vigorVersion = "Vigor TFT version 1.0";
 
@@ -144,7 +145,7 @@ void runHMIStateMachine(HMIState state)
 		std::cout << "State: Init" << std::endl;
 		myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 		myVigorTFT.fillScreen(backGroundColor);
-		myVigorTFT.setFont(font_arialBold); // select font
+		myVigorTFT.setFont(font_SpaceMonoBold); // select font
 		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 5);
 		myVigorTFT.print("Hallo RST");
