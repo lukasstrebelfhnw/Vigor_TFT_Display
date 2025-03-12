@@ -5,17 +5,19 @@
 #ifndef VIGORTFT_H
 #define VIGORTFT_H
 
+/*
 #include "vigorTFT.h"
 #include <ctime>
 #include <chrono>
 #include <thread>
 #include <string>
 #include "ST7789_TFT_LCD_RVL.hpp"
+*/
 /*
 #include "font_data_RVL.hpp"
 #include "print_data_RVL.hpp"
 */
-
+/*
 // Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
 #define buttonGrey 0x52EC
 #define buttonAuto 0x1389
@@ -25,6 +27,7 @@
 #define backGroundColor 0x9D14
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
+*/
 
 // Datatype definitions
 using message = std::string;
@@ -43,7 +46,7 @@ public:
   ~vigorTFT();
 
   // Creates Display Methods
-  void createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
+  void createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path,  std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
   void createDisplay();
   void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
   void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);

@@ -7,6 +7,8 @@
 #include <chrono>
 #include <thread>
 #include <string>
+#include <iostream>
+#include <cstring>
 #include "ST7789_TFT_LCD_RVL.hpp"
 // #include "Bi_Color_Bitmap_Data.hpp"
 /*
@@ -34,7 +36,7 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, const char *versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
@@ -43,24 +45,25 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	// End Font definitions
 
 	// Set Display parameter
-	// uint16_t versionText_x; // Set x Poition Logo effective Value left top corner Display
-	// uint16_t versionText_y; // Set y Poition Logo effective Value left top corner Display
+
 	uint16_t x = 40; // Set x Poition Logo effective Value left top corner Display
 	uint16_t y = 15; // Set y Poition Logo effective Value left top corner Display
 	uint16_t loadingBarHight = 2 * versionFontHight;
 	uint16_t loadingBarWidth = myTFTWidth - (4 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
+	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
+	uint16_t versionText_y = y + bitMapHeight + 2 * spaceMean + loadingBarHight;			// Set y Poition versionText effective Value left top corner Display
 
 	// Buils Display
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
-	
+
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
-	this->setTextColor(buttonRand);												// select color
+	this->setTextColor(buttonRand, backGroundColor);							// select color
 	this->print(versionVigor);
-	
+
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
