@@ -56,9 +56,9 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);
-	this->setInvertFont(true);													// select font
-	this->setTextColor(buttonRand, backGroundColor);							// select color
-	this->write(versionVigor);
+	this->setInvertFont(true);						 // select font
+	this->setTextColor(buttonRand, backGroundColor); // select color
+	this->print(versionVigor);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
@@ -102,7 +102,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	if (showValue)
 	{
 		this->setFont(font_orla);
-		this->setInvertFont(true);	// Invert font color
+		this->setInvertFont(true); // Invert font color
 		this->setTextColor(colorFrame);
 		this->setCursor(x + lineThickness, y + lineThickness);
 		this->print(std::to_string(barValue) + "%");
