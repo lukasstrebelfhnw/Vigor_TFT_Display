@@ -40,11 +40,8 @@ TARGET=$(BIN)/test.out
 
 # Project directory structure
 #SRCS = $(wildcard $(SRC)/*.cpp) font_data_RVL.cpp # font_data_RVL.cpp hinzugefügt
-#SRCS = $(wildcard $(SRC)/*.cpp) vigorTFT.cpp #Anpassung Lukas
+SRCS = $(wildcard $(SRC)/*.cpp) vigorTFT.cpp #Anpassung Lukas
 #OBJS = $(patsubst $(SRC)/%.cpp,  $(BUILD)/%.o, $(SRCS))
-
-SRCS = $(wildcard $(SRC)/*.cpp) font_data_RVL.cpp
-OBJS = $(patsubst $(SRC)/%.cpp, $(BUILD)/$(SRC)/%.o, $(SRCS:font_data_RVL.cpp=$(notdir font_data_RVL.o)))
 
 # Main task, makes build directory, updates your objects, builds your executable
 .PHONY: all
