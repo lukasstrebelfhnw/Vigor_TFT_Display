@@ -94,7 +94,9 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	display_Font_name_e font = font_orla;
-	uint16_t effectiveBarHeight = 17; // this->getFontSizeHeight(&font);
+	uint16_t effectiveFontSizeWidth = 16;					   // this->getFontSizeWidth(&font);
+	uint16_t effectiveFontSizeHeight = 24;					   // this->getFontSizeHeight(&font);
+	uint16_t effectiveBarHeight = effectiveFontSizeHeight + 1; // this->getFontSizeHeight(&font);
 	uint16_t effectiveBarWidth = w - 2 * lineThickness;
 	this->fillRectangle(x, y, w, h, colorFrame);
 
@@ -131,8 +133,8 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	else
 	{
 		uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
-		this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth - 2 * lineThickness, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
-		this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);								   // Print progress bar
+		this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
+		this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);			   // Print progress bar
 	}
 }
 
