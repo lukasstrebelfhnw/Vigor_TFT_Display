@@ -105,9 +105,9 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 
 	if (showValue)
 	{
-		uint16_t minBarWidth = 4 * 8 + 2 * lineThickness + 10;
+		uint16_t minBarWidth = 4 * effectiveFontSizeWidth + 2 * lineThickness + 10;
 		lineThickness = (w - effectiveBarHeight) / 2;
-		effectiveBarWidth = w - 4 * 8 - 2 * lineThickness; // this->getFontSizeWidth(&font);
+		effectiveBarWidth = w - 4 * effectiveFontSizeWidth - 3 * lineThickness; // this->getFontSizeWidth(&font);
 		if ((effectiveBarHeight - 2) >= h)
 		{
 			std::cout << "Error: Bar size height is too small" << std::endl;
@@ -122,19 +122,19 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		{
 
 			uint16_t filledWidth = (barValue * effectiveBarWidth) / 100;
-			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth - 2 * lineThickness, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
-			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);								   // Print progress bar
-			this->setFont(font);																																	   // select font
+			this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight, colorBackground); // Override the inner rectangle with the background color
+			this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight, colorBar);			   // Print progress bar
+			this->setFont(font);																							   // select font
 			this->setTextColor(colorBar, colorFrame);
-			this->setCursor(x + lineThickness + effectiveBarWidth, y + lineThickness);
+			this->setCursor(x + 2 * lineThickness + effectiveBarWidth, y + lineThickness);
 			this->print(std::to_string(barValue) + "%");
 		}
 	}
 	else
 	{
-		uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
-		this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight - 2 * lineThickness, colorBackground); // Override the inner rectangle with the background color
-		this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight - 2 * lineThickness, colorBar);			   // Print progress bar
+		uint16_t filledWidth = (barValue * (effectiveBarWidth)) / 100;
+		this->fillRectangle(x + lineThickness, y + lineThickness, effectiveBarWidth, effectiveBarHeight, colorBackground); // Override the inner rectangle with the background color
+		this->fillRectangle(x + lineThickness, y + lineThickness, filledWidth, effectiveBarHeight, colorBar);			   // Print progress bar
 	}
 }
 
