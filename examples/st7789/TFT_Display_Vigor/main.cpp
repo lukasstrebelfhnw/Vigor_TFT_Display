@@ -64,6 +64,34 @@ enum class HMIState
 	ERROR
 };
 
+// Struct for Koordinaten Textboxes
+struct TextBox
+{
+	int16_t x;
+	int16_t y;
+	int16_t width;
+	int16_t height;
+};
+
+std::unordered_map<std::string, TextBox> textBoxes = {
+	{"hmi_vend_ist", {10, 10, 100, 20}},
+	{"hmi_vend_soll", {130, 10, 100, 20}},
+	{"hmi_pos_l", {10, 40, 220, 20}},
+	{"hmi_pos_r", {10, 70, 100, 20}},
+	{"hmi_soll_l", {130, 70, 100, 20}},
+	{"hmi_soll_r", {10, 100, 220, 20}},
+	{"hmi_speed", {10, 130, , 16}},
+	{"hmi_gps", {10, 130, 220, 20}},
+	{"hmi_feldname", {10, 10, 160, 16}}, // max Feldname 10 Zeichen 16x16
+	{"hmi_state", {10, 130, 220, 20}},
+	{
+		"hmi_fehler",
+		{10, 130, 220, 20} {"hmi_button1", {10, 130, 220, 20}},
+		{"hmi_button2", {10, 130, 220, 20}},
+		{"hmi_button3", {10, 130, 220, 20}},
+		{"hmi_button4", {10, 130, 220, 20}},
+	};
+
 // Function to read from Redis
 typedef std::unordered_map<std::string, std::string> RedisData;
 RedisData readRedis()
@@ -113,9 +141,44 @@ void runHMIStateMachine(HMIState state)
 	case HMIState::STARTUP:
 		std::cout << "State: StartUp" << std::endl;
 		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+		HMIState currentState = HMIState::INIT;
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
+		this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
+		this->fillScreen(backGroundColor);
+		myVigorTFT.setFont(font_arialBold); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 5);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_hallfetica); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 35);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_arialRound); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 65);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_orla); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 95);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_groTesk); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 125);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_mint); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 125);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_default); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 155);
+		myVigorTFT.print("Hallo RST");
+		myVigorTFT.setFont(font_retro); // select font
+		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setCursor(5, 185);
+		myVigorTFT.print("Hallo RST");
 		break;
 	case HMIState::CALIB:
 		std::cout << "State: Calib" << std::endl;
