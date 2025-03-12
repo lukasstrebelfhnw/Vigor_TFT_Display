@@ -50,11 +50,11 @@ all: clean build
 
 # Task producing target from built files
 $(TARGET): $(OBJS) $(BUILD)
-        @echo 'MAKE EXE FILE'
-        $(MD) -vp $(BIN)
-        $(MD) -vp $(BUILD)
-        $(CXX) $(OBJS) -o $@ $(LDFLAGS)
-        @echo 'DONE!'
+		@echo 'MAKE EXE FILE'
+		$(MD) -vp $(BIN)
+		$(MD) -vp $(BUILD)
+		$(CXX) $(OBJS) -o $@ $(LDFLAGS)
+		@echo 'DONE!'
 
 # Compile all cpp files
 #$(BUILD)/%.o :  $(SRC)/%.cpp   $(BUILD)
