@@ -61,8 +61,8 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x, (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, false);
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		this->createLoadingBar(x, (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	this->fillScreen(RVLC_BLACK);
 }
@@ -90,6 +90,11 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 	this->fillRectangle(x, y, w, w, colorFrame);
 	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
 }
+
+/*
+TODO:
+Uptade this Function with font size from common_data.h
+*/
 
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
