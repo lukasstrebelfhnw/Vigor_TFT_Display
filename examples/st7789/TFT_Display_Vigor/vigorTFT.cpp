@@ -111,7 +111,7 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	this->drawRectWH(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
 }
 
-void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t textColor, std::string text)
+void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
 {
 	this->setCursor(x, y);
 	this->setFont(font);		   // select font
@@ -119,7 +119,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t 
 	this->print(text);
 }
 
-void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
+void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
 {
 	this->setCursor(x, y);
 	this->setFont(font); // select font
@@ -133,12 +133,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, const uint8_t font, uint16_t 
 	}
 	this->print(text);
 }
-{
-	myVigorTFT.setCursor(5, 120);
-	myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-	myVigorTFT.setFont(font_arialRound);
-	myVigorTFT.print("hesch au schochli hunger?");
-}
+
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
