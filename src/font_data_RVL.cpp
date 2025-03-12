@@ -6,6 +6,7 @@
 */
 
 #include "../../include/font_data_RVL.hpp"
+#include "font_data_RVL.hpp"
 
 // === Font class implementation ===
 /*!
@@ -115,13 +116,14 @@ bool display_Fonts::getInvertFont()
 	return _FontInverted;
 }
 
-uint8_t getFontSizeWidth(display_Font_name_e *width)
+uint8_t display_Fonts::getFontSizeWidth(display_Font_name_e *width)
 {
-	return _Font_X_Size;
+	return this->_Font_X_Size;
 }
-uint8_t getFontSizeHeight(display_Font_name_e *height)
+
+uint8_t display_Fonts::getFontSizeHeight(display_Font_name_e *height)
 {
-	return _Font_Y_Size;
+	return this->_Font_Y_Size;
 }
 
 // === End of Font class implementation ===
