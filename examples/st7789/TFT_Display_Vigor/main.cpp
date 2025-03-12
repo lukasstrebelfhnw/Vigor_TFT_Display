@@ -18,6 +18,7 @@
 #include <string>
 #include <hiredis/hiredis.h>
 #include "vigorTFT.h"
+#include <vector>
 
 // Color ::  Defines
 #define buttonGrey 0x52EC
@@ -111,7 +112,7 @@ void runHMIStateMachine(HMIState state)
 	{
 	case HMIState::STARTUP:
 		std::cout << "State: StartUp" << std::endl;
-		vigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
+		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
