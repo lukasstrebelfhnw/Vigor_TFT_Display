@@ -145,35 +145,35 @@ void runHMIStateMachine(HMIState state)
 		myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 		myVigorTFT.fillScreen(backGroundColor);
 		myVigorTFT.setFont(font_arialBold); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 5);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_hallfetica); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 35);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_arialRound); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 65);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_orla); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 95);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_groTesk); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 125);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_mint); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 155);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_default); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 185);
 		myVigorTFT.print("Hallo RST");
 		myVigorTFT.setFont(font_retro); // select font
-		myVigorTFT.setTextColor(buttonAuto);
+		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 200);
 		myVigorTFT.print("Hallo RST");
 		break;
