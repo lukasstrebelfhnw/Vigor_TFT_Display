@@ -41,8 +41,8 @@ TARGET=$(BIN)/test.out
 # Project directory structure
 SRCS = $(wildcard $(SRC)/*.cpp)
 #SRCS = $(wildcard $(SRC)/*.cpp) vigorTFT.cpp #Anpassung Lukas
-OBJS = $(patsubst $(SRC)/%.cpp,  $(BUILD)/%.o, $(SRCS))
-
+#OBJS = $(patsubst $(SRC)/%.cpp,  $(BUILD)/%.o, $(SRCS))
+OBJS = $(patsubst %.cpp, $(BUILD)/%.o, $(SRCS))
 # Main task, makes build directory, updates your objects, builds your executable
 .PHONY: all
 all: clean build
@@ -62,6 +62,10 @@ $(TARGET): $(OBJS) $(BUILD)
 $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
 	@echo 'MAKE OBJECT FILE'
 	$(CXX) $(CFLAGS) -o $@ $<
+
+$(BUILD)/font_data_RVL.o: font_data_RVL.cpp | $(BUILD)
+    @echo 'MAKE OBJECT FILE font_data_RVL.o'
+    $(CXX) $(CFLAGS) -o $@ $<
 
 
 # Build task
