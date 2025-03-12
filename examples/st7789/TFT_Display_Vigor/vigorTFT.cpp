@@ -43,10 +43,10 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	// End Font definitions
 
 	// Set Display parameter
-	uint16_t versionText_x; // Set x Poition Logo effective Value left top corner Display
-	uint16_t versionText_y; // Set y Poition Logo effective Value left top corner Display
-	uint16_t x = 40;		// Set x Poition Logo effective Value left top corner Display
-	uint16_t y = 20;		// Set y Poition Logo effective Value left top corner Display
+	// uint16_t versionText_x; // Set x Poition Logo effective Value left top corner Display
+	// uint16_t versionText_y; // Set y Poition Logo effective Value left top corner Display
+	uint16_t x = 40; // Set x Poition Logo effective Value left top corner Display
+	uint16_t y = 20; // Set y Poition Logo effective Value left top corner Display
 	uint16_t loadingBarHight = 2 * versionFontHight;
 	uint16_t loadingBarWidth = myTFTWidth - (4 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
@@ -55,15 +55,16 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
-	this->setCursor(x * 3, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
+	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
-	this->setTextColor(buttonRand, backGroundColor);							// select color
+	this->setTextColor(buttonRand);												// select color
 	this->print(versionVigor);
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar((x * 2), (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
+	myTFT.fillScreen(RVLC_BLACK);
 }
 
 void vigorTFT::createDisplay()
@@ -90,17 +91,53 @@ void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, u
 	this->drawRectWH(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
 }
 
-void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
+void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	this->drawRectWH(x, y, w, h, colorFrame);
+
+	// Override the inner rectangle with the background color
+	this->drawRectWH(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
+
 	if (showValue)
 	{
-		this->setFont(font_orla);							   // select font
-		this->setTextColor(buttonMan, colorBackgroung);		   // select color
-		this->setCursor(x + lineThickness, y + lineThickness); // set Cursor left top corner
-		this->print(barValue + "%");
+		this->setFont(font_orla);
+		this->setTextColor(colorFrame);
+		this->setCursor(x + lineThickness, y + lineThickness);
+		this->print(std::to_string(barValue) + "%");
 	}
-	this->drawRectWH(x + lineThickness, y + lineThickness, barValue * ((w - 2 * lineThickness) / 100), (h - 2 * lineThickness), colorBar);
+
+	// Print progress bar
+	uint16_t filledWidth = (barValue * (w - 2 * lineThickness)) / 100;
+	this->drawRectWH(x + lineThickness, y + lineThickness, filledWidth, h - 2 * lineThickness, colorBar);
+}
+
+void vigorTFT::createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, std::string text)
+{
+	this->setCursor(x, y);
+	this->setFont(font);		   // select font
+	this->setTextColor(textColor); // first text last background
+	this->print(text);
+}
+
+void vigorTFT::createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
+{
+	this->setCursor(x, y);
+	this->setFont(font); // select font
+	if (toggleColor)
+	{
+		this->setTextColor(toggleTextColor); // first text last background
+	}
+	else
+	{
+		this->setTextColor(textColor); // first text last background
+	}
+	this->print(text);
+}
+{
+	myVigorTFT.setCursor(5, 120);
+	myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
+	myVigorTFT.setFont(font_arialRound);
+	myVigorTFT.print("hesch au schochli hunger?");
 }
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)

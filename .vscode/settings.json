@@ -2,6 +2,7 @@
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "iostream": "cpp",
-    "chrono": "cpp"
+    "chrono": "cpp",
+    "xstring": "cpp"
   }
 }

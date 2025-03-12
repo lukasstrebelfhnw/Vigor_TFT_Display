@@ -79,11 +79,7 @@ int main()
 			break;
 		case Kalibrieren:
 			std::cout << "Kalibrieren State\n";
-			myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-			myVigorTFT.fillScreen(backgroundColor);
 			myVigorTFT.setCursor(5, 120);
-			myVigorTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-			myVigorTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
 			myVigorTFT.setTextColor(buttonAuto, buttonRand); // first text last background
 			myVigorTFT.setFont(font_arialRound);
 			myVigorTFT.print("hesch au schochli hunger?");

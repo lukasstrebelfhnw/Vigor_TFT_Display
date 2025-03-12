@@ -47,6 +47,8 @@ public:
   void createDisplay();
   void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
   void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
+  void createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, std::string text);
+  void createTextBox(int16_t x, int16_t y, uint8_t font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor);
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
 
