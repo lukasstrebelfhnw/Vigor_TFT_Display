@@ -145,7 +145,7 @@ void runHMIStateMachine(HMIState state)
 		std::cout << "State: Init" << std::endl;
 		myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
 		myVigorTFT.fillScreen(backGroundColor);
-		myVigorTFT.setFont(font_SpaceMonoBold); // select font
+		myVigorTFT.setFont(font_arialBold); // select font
 		myVigorTFT.setTextColor(RVLC_BLACK);
 		myVigorTFT.setCursor(5, 5);
 		myVigorTFT.print("Hallo RST");
