@@ -14,6 +14,9 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <unordered_map>
+#include <string>
+#include <hiredis/hiredis.h>
 #include "vigorTFT.h"
 
 // Color ::  Defines
