@@ -105,8 +105,8 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 		if (stateMatches)
 		{
 			// Load Data from Redis
-			auto valIt = redisData.find(key);
-			if (valIt != redisData.end())
+			auto valIt = data.find(key);
+			if (valIt != data.end())
 			{
 				const std::string &value = valIt->second;
 
