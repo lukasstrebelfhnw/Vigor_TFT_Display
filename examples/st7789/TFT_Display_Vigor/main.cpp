@@ -49,7 +49,7 @@ vigorTFT myVigorTFT;
 using RedisData = std::unordered_map<std::string, std::string>;
 
 //  Section ::  Function Headers
-
+RedisData readRedis();
 uint8_t SetupHWSPI(void); // setup + user options for hardware SPI 0
 void EndTests(void);
 
@@ -96,10 +96,9 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button3_2Z", {278, 134, 32, 32}}, // x max 2 Zeichen
 	{"hmi_button4_3Z", {262, 194, 48, 32}}, // x max 3 Zeichen};
 	{"hmi_button4_4Z", {246, 194, 64, 32}}, // x max 4 Zeichen};
-}
+};
 
-RedisData
-readRedis()
+RedisData readRedis()
 {
 	redisContext *c = redisConnect("127.0.0.1", 6379);
 	RedisData data;
