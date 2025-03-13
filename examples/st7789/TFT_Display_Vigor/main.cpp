@@ -212,7 +212,7 @@ void runHMIStateMachine(HMIState state, const RedisData &data)
 	}
 
 	// TFT-Display create
-	myVigorTFT.createDisplay(data, textBoxes, currentStateString, myTFTHeight, myTFTWidth);
+	myVigorTFT.createDisplay(data, textBoxes, currentStateString);
 }
 
 // State Machine Execution
