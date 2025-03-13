@@ -67,22 +67,59 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->fillScreen(RVLC_BLACK);
 }
 
-void vigorTFT::createDisplay()
+void vigorTFT::createDisplay(RedisData data, std::unordered_map textBoxes, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
-	/*
-	std::cout << "Init" << std::endl;
-	myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate the display
-	myTFT.fillScreen(backGroundColor);
-	myTFT.setCursor(42, 60);
-	myTFT.fillRect(0, 0, 320, 10, RVLC_GREEN);
-	myTFT.fillRect(0, 20, 320, 10, RVLC_DGREEN);
-	myTFT.setTextColor(RVLC_WHITE, RVLC_BLACK);
-	myTFT.setFont(font_groTesk);
-	myTFT.setTextColor(buttonAuto, buttonRand); // first text last background
-	myTFT.setFont(font_orla);
-	myTFT.print("Hello Kathrin");
-	delayMilliSecRVL(7000);
-	*/
+	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
+	this->fillScreen(backGroundColor);
+
+	// current State from Redis
+	auto stateIt = redisData.find("hmi_state");
+	if (stateIt == redisData.end())
+	{
+		std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl; // Error: hmi_state not found in Redis data
+		return;
+	}
+
+	const std::string &currentState = stateIt->second; // current State from Redis key is "hmi_state"
+
+	// Itterate over all TextBoxes
+	for (const auto &[key, box] : textBoxes)
+	{
+		// Check if the current state is allowed for the box
+		std::istringstream ss(box.states);
+		std::string state;
+		bool stateMatches = false;
+
+		while (std::getline(ss, state, ';'))
+		{
+			if (state == currentState)
+			{
+				stateMatches = true;
+				break;
+			}
+		}
+
+		if (stateMatches)
+		{
+			// Load Data from Redis
+			auto valIt = redisData.find(key);
+			if (valIt != redisData.end())
+			{
+				const std::string &value = valIt->second;
+
+				// Print the value
+				this->setCursor(box.x, box.y);
+				this->setFont(font_retro);
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print(value);
+			}
+			else
+			{
+				// Key not available in Redis
+				std::cerr << "Hinweis: Redis-Key '" << key << "' nicht vorhanden." << std::endl;
+			}
+		}
+	}
 }
 
 void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)

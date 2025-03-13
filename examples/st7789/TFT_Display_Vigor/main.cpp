@@ -68,7 +68,7 @@ enum class HMIState
 	ERROR
 };
 
-// Struct for Koordinaten Textboxes
+// Struct for Coordinates Textboxes
 struct TextBox
 {
 	std::string useableSTATES;
@@ -79,19 +79,19 @@ struct TextBox
 };
 
 std::unordered_map<std::string, TextBox> textBoxes = {
-	{"hmi_vend_ist_48", {"INIT", 10, 96, 96, 48}},								 // INIT
-	{"hmi_vend_ist_16_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;AUTO", 42, 65, 32, 16}},	 // CALIB/SEMI/MAN/L/EDGEL/AUTO
-	{"hmi_vend_ist_16_R", {"CALIB;SEMI;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16}}, // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48}},								 // CALIB
-	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;AUTO", 10, 96, 128, 48}},				 // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_pos_r", {"SEMI;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48}},				 // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_soll_l", {"EDGE_L;AUTO", 42, 159, 32, 16}},							 // EDGEL_R/AUTO
-	{"hmi_soll_r", {"EDGE_R;AUTO", 172, 159, 32, 16}},							 // EDGEL_R/AUTO
-	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16}},						 // EDGEL_R/AUTO
-	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16}},						 // EDGEL_R/AUTO
-	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16}},					 // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
+	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},								  // INIT
+	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;AUTO", 42, 65, 32, 16}},  // CALIB/SEMI/MAN/L/EDGEL/AUTO
+	{"hmi_vend_ist_R", {"CALIB;SEMI;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16}}, // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48}},							  // CALIB
+	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;AUTO", 10, 96, 128, 48}},			  // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_pos_r", {"SEMI;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48}},			  // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_soll_l", {"EDGE_L;AUTO", 42, 159, 32, 16}},						  // EDGEL_R/AUTO
+	{"hmi_soll_r", {"EDGE_R;AUTO", 172, 159, 32, 16}},						  // EDGEL_R/AUTO
+	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16}},					  // EDGEL_R/AUTO
+	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16}},					  // EDGEL_R/AUTO
+	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16}},				  // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
 	//{"hmi_state", {"",10, 130, 220, 20}},											 // only for Statemachine
-	{"hmi_fehler_code", {"ERROR", 16, 16, 288, 32}},						   // ERROR code 18 Zeichen 16x32
+	{"hmi_fehler", {"ERROR", 16, 16, 288, 32}},								   // ERROR code 18 Zeichen 16x32
 	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16}},					   // ERROR firstline 36 Zeichen 8x16
 	{"hmi_fehler_secondline", {"ERROR", 16, 72, 288, 16}},					   // ERROR secondline 36 Zeichen 8x16
 	{"hmi_button1_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 14, 48, 32}},  // /MAN/L_R/EDGEL_R  "auf"
@@ -118,6 +118,57 @@ RedisData readRedis()
 		"hmi_vend_ist", "hmi_vend_soll", "hmi_pos_l", "hmi_pos_r",
 		"hmi_soll_l", "hmi_soll_r", "hmi_feldname", "hmi_speed",
 		"hmi_gps", "hmi_state", "hmi_fehler"};
+
+	// only for testing
+
+	//  Verfügbare States für hmi_state (du kannst hier gerne anpassen)
+	std::vector<std::string> possibleStates = {
+		"INIT", "CALIB", "SEMI", "MANUAL_L", "MANUAL_R", "EDGE_L", "EDGE_R", "AUTO", "ERROR"};
+
+	// Zufalls-Seed setzen
+	std::srand(std::time(nullptr));
+
+	// Jeden Key mit einem zufälligen Wert füllen
+	for (const auto &key : keys)
+	{
+		std::string value;
+
+		if (key == "hmi_state")
+		{
+			// Einen zufälligen State auswählen
+			value = possibleStates[std::rand() % possibleStates.size()];
+		}
+		else if (key == "hmi_feldname")
+		{
+			// Beispiel-Feldname mit bis zu 15 Zeichen
+			int len = 5 + std::rand() % 10;
+			value = "Feld_";
+			for (int i = 0; i < len; ++i)
+			{
+				value += static_cast<char>('A' + std::rand() % 26);
+			}
+		}
+		else if (key == "hmi_fehler")
+		{
+			value = "Fehlercode " + std::to_string(100 + std::rand() % 900);
+		}
+		else
+		{
+			// Zufallszahl als String (1–4 Stellen)
+			int number = std::rand() % 10000; // 0–9999
+			value = std::to_string(number);
+		}
+
+		// Wert in Redis schreiben
+		redisReply *reply = (redisReply *)redisCommand(c, "SET %s %s", key.c_str(), value.c_str());
+		if (reply)
+			freeReplyObject(reply);
+	}
+
+	std::cout << "Zufallswerte in Redis geschrieben." << std::endl;
+
+	// End of testing
+
 	for (const auto &key : keys)
 	{
 		redisReply *reply = (redisReply *)redisCommand(c, "GET %s", key.c_str());
@@ -131,18 +182,6 @@ RedisData readRedis()
 	return data;
 }
 
-/*
-// Function to update display
-void updateDisplay(const RedisData& data) {
-	myVigorTFT.fillScreen(ST77XX_BLACK);
-	int y = 10;
-	for (const auto& [key, value] : data) {
-		myTFT.drawText(10, y, key + ": " + value, ST77XX_WHITE, ST77XX_BLACK);
-		y += 20;
-	}
-}
-*/
-
 // State Machine Execution
 void runHMIStateMachine(HMIState state)
 {
@@ -155,64 +194,39 @@ void runHMIStateMachine(HMIState state)
 		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
-		myVigorTFT.TFTsetRotation(myVigorTFT.TFT_Degrees_90); // Rotate the display
-		myVigorTFT.fillScreen(backGroundColor);
-		myVigorTFT.setFont(font_arialBold); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 5);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_hallfetica); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 35);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_arialRound); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 65);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_orla); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 95);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_groTesk); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 125);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_mint); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 155);
-		myVigorTFT.print("Hallo RST");
-		myVigorTFT.setFont(font_sixteenSeg); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(5, 190);
-		myVigorTFT.print("123");
-		myVigorTFT.setFont(font_retro); // select font
-		myVigorTFT.setTextColor(RVLC_BLACK);
-		myVigorTFT.setCursor(150, 220);
-		myVigorTFT.print("Hallo RST");
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::CALIB:
 		std::cout << "State: Calib" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::MANUAL_L:
 		std::cout << "State: Manual_L" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::MANUAL_R:
 		std::cout << "State: Manual_R" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::SEMI:
 		std::cout << "State: Semi" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::AUTO:
 		std::cout << "State: Auto" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::EDGE_L:
 		std::cout << "State: Edge_L" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::EDGE_R:
 		std::cout << "State: Edge_R" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	case HMIState::ERROR:
 		std::cout << "State: Error" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	}
 	// updateDisplay(data);
@@ -227,8 +241,8 @@ int main()
 	while (true)
 	{
 		runHMIStateMachine(currentState);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		currentState = HMIState::INIT;
+		std::this_thread::sleep_for(std::chrono::miliseconds(500));
+		// currentState = HMIState::INIT;
 	}
 	return 0;
 }
