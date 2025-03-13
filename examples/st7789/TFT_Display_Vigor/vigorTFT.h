@@ -46,20 +46,15 @@ public:
   // Creates Display Methods
   void createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
   void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, const std::string &currentState, uint16_t myTFTHeight, uint16_t myTFTWidth);
-  void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
   void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
+  /* not used functions
+  void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
   void createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text);
   void createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor);
+  */
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
-
-  // Set Display parameter
-  void setGPS(signalGPS);
-  void setObjectName(objectName);
-  void setMessage(message);
-  void setMode(mode);
-  void setValue(text);
-  void setValue(number);
+  void drwaText(const TextBox &box, const std::string &text);
 };
 
 #endif // VIGORTFT_H

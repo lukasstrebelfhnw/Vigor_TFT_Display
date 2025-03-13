@@ -70,10 +70,19 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->fillScreen(RVLC_BLACK);
 }
 
-void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, const std::string &currentState, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createDisplay(
+	const std::unordered_map<std::string, std::string> &data,
+	const std::unordered_map<std::string, TextBox> &textBoxes,
+	const std::string &currentState,
+	uint16_t myTFTHeight,
+	uint16_t myTFTWidth)
 {
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
+
+	// 🔥 Lookup-Tabelle für spezielle Texte
+	std::unordered_map<std::string, std::string> specialTexts = {
+		{"hmi_button1_3Z", "auf"}, {"hmi_button1_1Z", "+"}, {"hmi_button2_2Z", "zu"}, {"hmi_button2_1Z", "-"}, {"hmi_button3_2Z", "JA"}, {"hmi_button4_3Z", "L/R"}, {"hmi_button4_4Z", "NEIN"}, {"hmi_button4_8Z", "abdrehen"}, {"hmi_button4_10Z", "quittieren"}};
 
 	// Iteriere über alle TextBoxen
 	for (const auto &[key, box] : textBoxes)
@@ -85,290 +94,27 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 
 		while (std::getline(ss, state, ';'))
 		{
-			if (state == currentState) // 🔥 Fix: `currentState` ist jetzt übergeben
+			if (state == currentState)
 			{
 				stateMatches = true;
 				break;
 			}
 		}
 
-		if (stateMatches)
-		{
-			// Wert aus Redis holen
-			auto valIt = data.find(key);
-			if (valIt != data.end())
-			{
-				const std::string &value = valIt->second;
+		if (!stateMatches)
+			continue; // Falls nicht sichtbar, überspringen
 
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print(value);
-			}
-			else if (vallt == "hmi_button1_3Z")
-			{
-				const std::string &value = valIt->second;
+		// 🔥 Entweder den Text aus Redis oder aus `specialTexts` holen
+		std::string value = (data.find(key) != data.end())					 ? data.at(key)
+							: (specialTexts.find(key) != specialTexts.end()) ? specialTexts.at(key)
+																			 : "";
 
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("auf");
-			}
-			else if (vallt == "hmi_button1_1Z")
-			{
-				const std::string &value = valIt->second;
+		if (value.empty())
+			continue; // Falls kein Wert gefunden, überspringen
 
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("+");
-			}
-			else if (vallt == "hmi_button2_2Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("zu");
-			}
-			else if (vallt == "hmi_button2_1Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("-");
-			}
-			else if (vallt == "hmi_button3_2Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("JA");
-			}
-			else if (vallt == "hmi_button4_3Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("L/R");
-			}
-			else if (vallt == "hmi_button4_4Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("NEIN");
-			}
-			else if (vallt == "hmi_button4_8Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("abdrehen");
-			}
-			else if (vallt == "hmi_button4_10Z")
-			{
-				const std::string &value = valIt->second;
-
-				// Display setzen
-				this->setCursor(box.x, box.y);
-				if (box.height == 16)
-				{
-					this->setFont(font_retro);
-				}
-				else if (box.height == 32)
-				{
-					this->setFont(font_groTesk);
-				}
-				else if (box.height == 48)
-				{
-					this->setFont(font_mint);
-				}
-				else
-				{
-					std::cerr << "Error: Font size not defined" << std::endl;
-					this->setFont(font_retro);
-				};
-				this->setTextColor(buttonRand, backGroundColor);
-				this->print("quittieren");
-			}
-			else
-			{
-				// Falls der Key nicht existiert
-				std::cerr << "Hinweis: Redis-Key '" << key << "' nicht vorhanden." << std::endl;
-			}
-		}
+		// 🔥 Text mit einer eigenen Funktion zeichnen
+		this->drawText(box, value);
 	}
-}
-
-void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)
-{
-	this->fillRectangle(x, y, w, w, colorFrame);
-	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
 }
 
 /*
@@ -435,6 +181,13 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		}
 	}
 }
+/*not used function
+
+void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)
+{
+	this->fillRectangle(x, y, w, w, colorFrame);
+	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
+}
 
 void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
 {
@@ -458,6 +211,7 @@ void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uin
 	}
 	this->print(text);
 }
+*/
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
@@ -514,6 +268,27 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	}
 
 	free(bmpBuffer);
+}
+
+void vigorTFT::drwaText(const TextBox &box, const std::string &text)
+{
+	this->setCursor(box.x, box.y);
+
+	// Schriftart abhängig von der Höhe setzen
+	if (box.height == 16)
+		this->setFont(font_retro);
+	else if (box.height == 32)
+		this->setFont(font_groTesk);
+	else if (box.height == 48)
+		this->setFont(font_mint);
+	else
+	{
+		std::cerr << "Error: Font size not defined" << std::endl;
+		this->setFont(font_retro);
+	}
+
+	this->setTextColor(buttonRand, backGroundColor);
+	this->print(text);
 }
 
 void vigorTFT::setGPS(signalGPS)
