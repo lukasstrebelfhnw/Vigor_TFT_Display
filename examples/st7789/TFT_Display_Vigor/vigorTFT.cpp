@@ -33,10 +33,10 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
-	Font definitions*/
+Font definitions*/
 	uint8_t versionFontHight = 16; // font_retro 16
 	uint8_t versionFontWidth = 8;  // font_retro 8
 	// End Font definitions
