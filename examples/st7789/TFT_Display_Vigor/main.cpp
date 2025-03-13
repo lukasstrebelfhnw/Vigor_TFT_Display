@@ -241,7 +241,7 @@ int main()
 	while (true)
 	{
 		runHMIStateMachine(currentState);
-		std::this_thread::sleep_for(std::chrono::miliseconds(500));
+		std::this_thread::sleep_for(std::chrono::miliseconds(5000));
 		// currentState = HMIState::INIT;
 	}
 	return 0;
