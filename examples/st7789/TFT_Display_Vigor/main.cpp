@@ -93,9 +93,10 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button3_2Z", {278, 134, 32, 32}}, // x max 2 Zeichen
 	{"hmi_button4_3Z", {262, 194, 48, 32}}, // x max 3 Zeichen};
 	{"hmi_button4_4Z", {246, 194, 64, 32}}, // x max 4 Zeichen};
-
-	// Function to read from Redis
-	typedef std::unordered_map<std::string, std::string> RedisData;
+}
+// Function to read from Redis
+typedef std::unordered_map<std::string, std::string>
+	RedisData;
 RedisData readRedis()
 {
 	redisContext *c = redisConnect("127.0.0.1", 6379);
