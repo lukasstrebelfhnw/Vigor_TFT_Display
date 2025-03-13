@@ -239,15 +239,13 @@ int main()
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
 
-	// 🏁 Starte mit dem Startup-State
-	HMIState currentState = HMIState::INIT;
-
-	std::cout << "State: StartUp" << std::endl;
-	myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+	// 🏁 1️⃣ Starte mit dem Startup-State (ohne Redis-Daten)
+	HMIState currentState = HMIState::STARTUP;
+	runHMIStateMachine(currentState); // Startup-Bildschirm anzeigen
 
 	while (true)
 	{
-		// 🔄 Redis-Daten auslesen
+		// 🔄 2️⃣ Redis-Daten auslesen
 		RedisData data = readRedis();
 
 		// 📌 Versuchen, den aktuellen State aus Redis zu lesen
@@ -281,10 +279,11 @@ int main()
 				currentState = HMIState::AUTO;
 			else if (stateString == "ERROR")
 				currentState = HMIState::ERROR;
+			// else currentState = HMIState::STARTUP; // Fallback-Wert, falls ungültig
 		}
 
-		// 🏁 Neuen Zustand ausführen
-		runHMIStateMachine(currentState, &data);
+		// 🏁 3️⃣ Neuen Zustand mit Daten aus Redis ausführen
+		runHMIStateMachine(currentState, data); // **Korrekte Übergabe ohne &**
 
 		// 🕒 Wartezeit zwischen den State-Updates
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
