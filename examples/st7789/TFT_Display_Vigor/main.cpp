@@ -40,11 +40,13 @@
 // Temporary ::  Defines
 const std::string vigorVersion = "Vigor TFT version 1.0";
 
-vigorTFT myVigorTFT;
-
 // Display size in pixels
 #define myTFTWidth 240
 #define myTFTHeight 320
+// Initialize TFT
+vigorTFT myVigorTFT;
+// Function to read from Redis
+using RedisData = std::unordered_map<std::string, std::string>;
 
 //  Section ::  Function Headers
 
@@ -95,9 +97,9 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button4_3Z", {262, 194, 48, 32}}, // x max 3 Zeichen};
 	{"hmi_button4_4Z", {246, 194, 64, 32}}, // x max 4 Zeichen};
 }
-// Function to read from Redis
-using RedisData = std::unordered_map<std::string, std::string>;
-RedisData readRedis()
+
+RedisData
+readRedis()
 {
 	redisContext *c = redisConnect("127.0.0.1", 6379);
 	RedisData data;
