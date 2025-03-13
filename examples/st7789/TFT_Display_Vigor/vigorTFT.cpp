@@ -75,16 +75,6 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 
-	// current State from Redis
-	auto stateIt = data.find("hmi_state");
-	if (stateIt == data.end())
-	{
-		std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl; // Error: hmi_state not found in Redis data
-		return;
-	}
-
-	const std::string &currentState = stateIt->second; // current State from Redis key is "hmi_state"
-
 	// Itterate over all TextBoxes
 	for (const auto &[key, box] : textBoxes)
 	{

@@ -188,7 +188,6 @@ RedisData readRedis()
 // State Machine Execution
 void runHMIStateMachine(HMIState state)
 {
-	RedisData data = readRedis();
 	switch (state)
 	{
 	case HMIState::STARTUP:
@@ -232,20 +231,29 @@ void runHMIStateMachine(HMIState state)
 		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
 		break;
 	}
-	// updateDisplay(data);
 }
 
 int main()
 {
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0
-
+	// current State from Redis key is "hmi_state"
 	HMIState currentState = HMIState::STARTUP;
 	while (true)
 	{
 		runHMIStateMachine(currentState);
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-		// currentState = HMIState::INIT;
+		RedisData data = readRedis();
+		// current State from Redis
+		auto stateIt = data.find("hmi_state");
+		if (stateIt == data.end())
+		{
+			std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl; // Error: hmi_state not found in Redis data
+			return;
+		}
+
+		const std::string &currentState = stateIt->second;
+		HMIState currentState = currentState;
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	}
 	return 0;
 }
