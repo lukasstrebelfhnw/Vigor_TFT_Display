@@ -20,6 +20,7 @@
 #include "vigorTFT.h"
 #include <vector>
 #include <unordered_map>
+#include "TextBox.h"
 
 // Color ::  Defines
 #define buttonGrey 0x52EC
@@ -69,6 +70,7 @@ enum class HMIState
 };
 
 // Struct for Coordinates Textboxes
+/*
 struct TextBox
 {
 	std::string useableSTATES;
@@ -77,6 +79,7 @@ struct TextBox
 	int16_t width;
 	int16_t height;
 };
+*/
 
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},								  // INIT
