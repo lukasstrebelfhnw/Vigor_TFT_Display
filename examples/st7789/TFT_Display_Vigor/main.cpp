@@ -230,6 +230,9 @@ void runHMIStateMachine(HMIState state)
 		std::cout << "State: StartUp" << std::endl;
 		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
 		break;
+	default:
+		std::cerr << "Fehler: runHMIStateMachine wurde ohne Redis-Daten mit einem falschen State aufgerufen!" << std::endl;
+		break;
 	}
 }
 
