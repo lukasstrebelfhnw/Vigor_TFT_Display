@@ -270,7 +270,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	free(bmpBuffer);
 }
 
-void vigorTFT::drwaText(const TextBox &box, const std::string &text)
+void vigorTFT::drawText(const TextBox &box, const std::string &text)
 {
 	this->setCursor(box.x, box.y);
 

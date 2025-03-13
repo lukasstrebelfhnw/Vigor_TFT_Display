@@ -54,7 +54,7 @@ public:
   */
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
-  void drwaText(const TextBox &box, const std::string &text);
+  void drawText(const TextBox &box, const std::string &text);
 };
 
 #endif // VIGORTFT_H
