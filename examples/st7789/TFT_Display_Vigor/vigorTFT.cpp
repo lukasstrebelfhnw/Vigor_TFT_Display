@@ -290,27 +290,3 @@ void vigorTFT::drwaText(const TextBox &box, const std::string &text)
 	this->setTextColor(buttonRand, backGroundColor);
 	this->print(text);
 }
-
-void vigorTFT::setGPS(signalGPS)
-{
-}
-
-void vigorTFT::setObjectName(objectName)
-{
-}
-
-void vigorTFT::setMessage(message)
-{
-}
-
-void vigorTFT::setMode(mode)
-{
-}
-
-void vigorTFT::setValue(text)
-{
-}
-
-void vigorTFT::setValue(number)
-{
-}
