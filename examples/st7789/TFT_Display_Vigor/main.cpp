@@ -240,7 +240,7 @@ int main()
 		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
 
 	// 🏁 Starte mit dem Startup-State
-	// HMIState currentState = HMIState::STARTUP;
+	HMIState currentState = HMIState::INIT;
 
 	std::cout << "State: StartUp" << std::endl;
 	myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
