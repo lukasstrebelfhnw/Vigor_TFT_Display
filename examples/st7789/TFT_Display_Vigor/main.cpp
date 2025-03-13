@@ -99,7 +99,7 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button2_2Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 278, 74, 32, 32}},	 // MAN/L_R/EDGEL_R "zu"
 	{"hmi_button2_1Z", {"CALIB", 294, 74, 16, 32}},								 // CALIB "-"
 	{"hmi_button3_2Z", {"INIT", 278, 134, 32, 32}},								 // INIT "JA"
-	{"hmi_button4_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R" 262, 194, 48, 32}},	 // MAN/L_R/EDGEL_R "L/R"
+	{"hmi_button4_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 194, 48, 32}},	 // MAN/L_R/EDGEL_R "L/R"
 	{"hmi_button4_4Z", {"INIT", 246, 194, 64, 32}},								 // INIT "NEIN"
 	{"hmi_button4_8Z", {"CALIB", 182, 194, 64, 32}},							 // CALIB "abdrehen"
 	{"hmi_button4_10Z", {"ERROR", 1150, 194, 64, 32}}							 // ERROR "quittieren"
