@@ -70,22 +70,22 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	this->fillScreen(RVLC_BLACK);
 }
 
-void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, const std::string &currentState, uint16_t myTFTHeight, uint16_t myTFTWidth)
 {
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 
-	// Itterate over all TextBoxes
+	// Iteriere über alle TextBoxen
 	for (const auto &[key, box] : textBoxes)
 	{
-		// Check if the current state is allowed for the box
+		// Prüfen, ob die TextBox im aktuellen State sichtbar ist
 		std::istringstream ss(box.useableSTATES);
 		std::string state;
 		bool stateMatches = false;
 
 		while (std::getline(ss, state, ';'))
 		{
-			if (state == currentState)
+			if (state == currentState) // 🔥 Fix: `currentState` ist jetzt übergeben
 			{
 				stateMatches = true;
 				break;
@@ -94,13 +94,13 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 
 		if (stateMatches)
 		{
-			// Load Data from Redis
+			// Wert aus Redis holen
 			auto valIt = data.find(key);
 			if (valIt != data.end())
 			{
 				const std::string &value = valIt->second;
 
-				// Print the value
+				// Display setzen
 				this->setCursor(box.x, box.y);
 				this->setFont(font_retro);
 				this->setTextColor(buttonRand, backGroundColor);
@@ -108,7 +108,7 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 			}
 			else
 			{
-				// Key not available in Redis
+				// Falls der Key nicht existiert
 				std::cerr << "Hinweis: Redis-Key '" << key << "' nicht vorhanden." << std::endl;
 			}
 		}

@@ -176,49 +176,44 @@ RedisData readRedis()
 // State Machine Execution
 void runHMIStateMachine(HMIState state, const RedisData &data)
 {
+	// Den aktuellen State als String bekommen
+	std::string currentStateString;
 	switch (state)
 	{
-	case HMIState::STARTUP:
-		std::cout << "State: StartUp" << std::endl;
-		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-		break;
 	case HMIState::INIT:
-		std::cout << "State: Init" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "INIT";
 		break;
 	case HMIState::CALIB:
-		std::cout << "State: Calib" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::MANUAL_L:
-		std::cout << "State: Manual_L" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::MANUAL_R:
-		std::cout << "State: Manual_R" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "CALIB";
 		break;
 	case HMIState::SEMI:
-		std::cout << "State: Semi" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "SEMI";
 		break;
-	case HMIState::AUTO:
-		std::cout << "State: Auto" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+	case HMIState::MANUAL_L:
+		currentStateString = "MANUAL_L";
+		break;
+	case HMIState::MANUAL_R:
+		currentStateString = "MANUAL_R";
 		break;
 	case HMIState::EDGE_L:
-		std::cout << "State: Edge_L" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "EDGE_L";
 		break;
 	case HMIState::EDGE_R:
-		std::cout << "State: Edge_R" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "EDGE_R";
+		break;
+	case HMIState::AUTO:
+		currentStateString = "AUTO";
 		break;
 	case HMIState::ERROR:
-		std::cout << "State: Error" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		currentStateString = "ERROR";
 		break;
+	default:
+		std::cerr << "Fehler: Ungültiger HMI-State!" << std::endl;
+		return;
 	}
+
+	// TFT-Display basierend auf dem aktuellen State updaten
+	myVigorTFT.createDisplay(data, textBoxes, currentStateString, myTFTHeight, myTFTWidth);
 }
 
 // State Machine Execution
@@ -241,9 +236,9 @@ int main()
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
 
-	// 🏁 1️⃣ Starte mit dem Startup-State (ohne Redis-Daten)
+	// 🏁 1️⃣ Starte mit dem Startup-State
 	HMIState currentState = HMIState::STARTUP;
-	runHMIStateMachine(currentState); // Startup-Bildschirm anzeigen
+	runHMIStateMachine(currentState, RedisData()); // Leeres `data`, da Startup keine Daten braucht
 
 	while (true)
 	{
@@ -281,11 +276,12 @@ int main()
 				currentState = HMIState::AUTO;
 			else if (stateString == "ERROR")
 				currentState = HMIState::ERROR;
-			// else currentState = HMIState::STARTUP; // Fallback-Wert, falls ungültig
+			else
+				currentState = HMIState::STARTUP; // Fallback-Wert, falls ungültig
 		}
 
 		// 🏁 3️⃣ Neuen Zustand mit Daten aus Redis ausführen
-		runHMIStateMachine(currentState, data); // **Korrekte Übergabe ohne &**
+		runHMIStateMachine(currentState, data);
 
 		// 🕒 Wartezeit zwischen den State-Updates
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
