@@ -76,8 +76,8 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 	this->fillScreen(backGroundColor);
 
 	// current State from Redis
-	auto stateIt = redisData.find("hmi_state");
-	if (stateIt == redisData.end())
+	auto stateIt = data.find("hmi_state");
+	if (stateIt == data.end())
 	{
 		std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl; // Error: hmi_state not found in Redis data
 		return;
@@ -89,7 +89,7 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 	for (const auto &[key, box] : textBoxes)
 	{
 		// Check if the current state is allowed for the box
-		std::istringstream ss(box.states);
+		std::istringstream ss(box.useableSTATES);
 		std::string state;
 		bool stateMatches = false;
 
