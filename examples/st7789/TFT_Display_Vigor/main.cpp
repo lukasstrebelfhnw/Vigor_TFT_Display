@@ -230,42 +230,6 @@ void runHMIStateMachine(HMIState state)
 		std::cout << "State: StartUp" << std::endl;
 		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
 		break;
-	case HMIState::INIT:
-		std::cout << "State: Init" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::CALIB:
-		std::cout << "State: Calib" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::MANUAL_L:
-		std::cout << "State: Manual_L" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::MANUAL_R:
-		std::cout << "State: Manual_R" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::SEMI:
-		std::cout << "State: Semi" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::AUTO:
-		std::cout << "State: Auto" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::EDGE_L:
-		std::cout << "State: Edge_L" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::EDGE_R:
-		std::cout << "State: Edge_R" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
-	case HMIState::ERROR:
-		std::cout << "State: Error" << std::endl;
-		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
-		break;
 	}
 }
 
