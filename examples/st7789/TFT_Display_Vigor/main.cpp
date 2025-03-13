@@ -69,18 +69,6 @@ enum class HMIState
 	ERROR
 };
 
-// Struct for Coordinates Textboxes
-/*
-struct TextBox
-{
-	std::string useableSTATES;
-	int16_t x;
-	int16_t y;
-	int16_t width;
-	int16_t height;
-};
-*/
-
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},								  // INIT
 	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;AUTO", 42, 65, 32, 16}},  // CALIB/SEMI/MAN/L/EDGEL/AUTO
@@ -189,12 +177,59 @@ RedisData readRedis()
 void runHMIStateMachine(HMIState state, const RedisData &data)
 {
 	switch (state)
-	{ /* STARTUP in main run only once by start
-	 case HMIState::STARTUP:
-		 std::cout << "State: StartUp" << std::endl;
-		 myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-		 break;
-		 */
+	{
+	case HMIState::STARTUP:
+		std::cout << "State: StartUp" << std::endl;
+		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+		break;
+	case HMIState::INIT:
+		std::cout << "State: Init" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::CALIB:
+		std::cout << "State: Calib" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::MANUAL_L:
+		std::cout << "State: Manual_L" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::MANUAL_R:
+		std::cout << "State: Manual_R" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::SEMI:
+		std::cout << "State: Semi" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::AUTO:
+		std::cout << "State: Auto" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::EDGE_L:
+		std::cout << "State: Edge_L" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::EDGE_R:
+		std::cout << "State: Edge_R" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	case HMIState::ERROR:
+		std::cout << "State: Error" << std::endl;
+		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
+		break;
+	}
+}
+
+// State Machine Execution
+void runHMIStateMachine(HMIState state)
+{
+	switch (state)
+	{
+	case HMIState::STARTUP:
+		std::cout << "State: StartUp" << std::endl;
+		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+		break;
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
 		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
