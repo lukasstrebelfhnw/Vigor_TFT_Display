@@ -19,6 +19,7 @@
 #include <hiredis/hiredis.h>
 #include "vigorTFT.h"
 #include <vector>
+#include <unordered_map>
 
 // Color ::  Defines
 #define buttonGrey 0x52EC
@@ -95,8 +96,7 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_button4_4Z", {246, 194, 64, 32}}, // x max 4 Zeichen};
 }
 // Function to read from Redis
-typedef std::unordered_map<std::string, std::string>
-	RedisData;
+using RedisData = std::unordered_map<std::string, std::string>;
 RedisData readRedis()
 {
 	redisContext *c = redisConnect("127.0.0.1", 6379);
