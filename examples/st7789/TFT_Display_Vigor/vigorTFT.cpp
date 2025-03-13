@@ -73,9 +73,7 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 void vigorTFT::createDisplay(
 	const std::unordered_map<std::string, std::string> &data,
 	const std::unordered_map<std::string, TextBox> &textBoxes,
-	const std::string &currentState,
-	uint16_t myTFTHeight,
-	uint16_t myTFTWidth)
+	const std::string &currentState)
 {
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);

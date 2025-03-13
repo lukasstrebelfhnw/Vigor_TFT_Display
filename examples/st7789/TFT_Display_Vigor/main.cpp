@@ -71,18 +71,18 @@ enum class HMIState
 
 // Section ::  TextBoxes set Coordinates and valid States
 std::unordered_map<std::string, TextBox> textBoxes = {
-	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},												  // INIT
-	{"hmi_calibrated", {"INIT", 8, 10, 304, 32}},											  // INIT
-	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 42, 65, 32, 16}},  // CALIB/SEMI/MAN/L/EDGEL/AUTO
-	{"hmi_vend_ist_R", {"CALIB;SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16}}, // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48}},											  // CALIB
-	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 10, 96, 128, 48}},			  // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_pos_r", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48}},			  // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_soll_l", {"EDGE_L;EDGE_R;AUTO", 42, 159, 32, 16}},								  // EDGEL_R/AUTO
-	{"hmi_soll_r", {"EDGE_L;EDGE_R;AUTO", 172, 159, 32, 16}},								  // EDGEL_R/AUTO
-	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16}},									  // EDGEL_R/AUTO
-	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16}},									  // EDGEL_R/AUTO
-	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16}},								  // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
+	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},												 // INIT
+	{"hmi_calibrated", {"INIT", 8, 10, 304, 32}},											 // INIT
+	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 42, 65, 32, 16}}, // CALIB/SEMI/MAN/L/EDGEL/AUTO
+	{"hmi_vend_ist_R", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16}},		 // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48}},											 // CALIB
+	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 10, 96, 128, 48}},			 // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_pos_r", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48}},			 // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_soll_l", {"EDGE_L;EDGE_R;AUTO", 42, 159, 32, 16}},								 // EDGEL_R/AUTO
+	{"hmi_soll_r", {"EDGE_L;EDGE_R;AUTO", 172, 159, 32, 16}},								 // EDGEL_R/AUTO
+	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16}},									 // EDGEL_R/AUTO
+	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16}},									 // EDGEL_R/AUTO
+	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16}},								 // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
 	//{"hmi_state", {"",10, 130, 220, 20}},											 // only for Statemachine
 	{"hmi_fehler", {"ERROR", 16, 16, 288, 32}},								   // ERROR code 18 Zeichen 16x32
 	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16}},					   // ERROR firstline 36 Zeichen 8x16
