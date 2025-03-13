@@ -186,14 +186,15 @@ RedisData readRedis()
 }
 
 // State Machine Execution
-void runHMIStateMachine(HMIState state)
+void runHMIStateMachine(HMIState state, const RedisData &data)
 {
 	switch (state)
-	{
-	case HMIState::STARTUP:
-		std::cout << "State: StartUp" << std::endl;
-		myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
-		break;
+	{ /* STARTUP in main run only once by start
+	 case HMIState::STARTUP:
+		 std::cout << "State: StartUp" << std::endl;
+		 myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+		 break;
+		 */
 	case HMIState::INIT:
 		std::cout << "State: Init" << std::endl;
 		myVigorTFT.createDisplay(data, textBoxes, myTFTHeight, myTFTWidth);
@@ -236,25 +237,59 @@ void runHMIStateMachine(HMIState state)
 int main()
 {
 	if (SetupHWSPI() != 0)
-		return -1; // Hardware SPI 0
-	// current State from Redis key is "hmi_state"
-	HMIState currentState = HMIState::STARTUP;
+		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
+
+	// 🏁 Starte mit dem Startup-State
+	// HMIState currentState = HMIState::STARTUP;
+
+	std::cout << "State: StartUp" << std::endl;
+	myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+
 	while (true)
 	{
-		runHMIStateMachine(currentState);
+		// 🔄 Redis-Daten auslesen
 		RedisData data = readRedis();
-		// current State from Redis
+
+		// 📌 Versuchen, den aktuellen State aus Redis zu lesen
 		auto stateIt = data.find("hmi_state");
 		if (stateIt == data.end())
 		{
-			std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl; // Error: hmi_state not found in Redis data
-			return;
+			std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl;
+			currentState = HMIState::ERROR; // Fallback zu ERROR, falls kein State in Redis gefunden wird
+		}
+		else
+		{
+			// 📝 State aus Redis holen
+			const std::string &stateString = stateIt->second;
+
+			// 🔄 String-State in `HMIState` umwandeln
+			if (stateString == "INIT")
+				currentState = HMIState::INIT;
+			else if (stateString == "CALIB")
+				currentState = HMIState::CALIB;
+			else if (stateString == "SEMI")
+				currentState = HMIState::SEMI;
+			else if (stateString == "MANUAL_L")
+				currentState = HMIState::MANUAL_L;
+			else if (stateString == "MANUAL_R")
+				currentState = HMIState::MANUAL_R;
+			else if (stateString == "EDGE_L")
+				currentState = HMIState::EDGE_L;
+			else if (stateString == "EDGE_R")
+				currentState = HMIState::EDGE_R;
+			else if (stateString == "AUTO")
+				currentState = HMIState::AUTO;
+			else if (stateString == "ERROR")
+				currentState = HMIState::ERROR;
 		}
 
-		const std::string &currentState = stateIt->second;
-		HMIState currentState = currentState;
+		// 🏁 Neuen Zustand ausführen
+		runHMIStateMachine(currentState, &data);
+
+		// 🕒 Wartezeit zwischen den State-Updates
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	}
+
 	return 0;
 }
 
