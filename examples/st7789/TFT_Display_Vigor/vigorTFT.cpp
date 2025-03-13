@@ -87,7 +87,7 @@ void vigorTFT::createDisplay(
 	// Iteriere über alle TextBoxen
 	for (const auto &[key, box] : textBoxes)
 	{
-		// Prüfen, ob die TextBox im aktuellen State sichtbar ist
+		// valid Box visability
 		std::istringstream ss(box.useableSTATES);
 		std::string state;
 		bool stateMatches = false;
@@ -102,17 +102,16 @@ void vigorTFT::createDisplay(
 		}
 
 		if (!stateMatches)
-			continue; // Falls nicht sichtbar, überspringen
+			continue; // skip not visible boxes
 
-		// 🔥 Entweder den Text aus Redis oder aus `specialTexts` holen
+		// Choice from Redis or special Text
 		std::string value = (data.find(key) != data.end())					 ? data.at(key)
 							: (specialTexts.find(key) != specialTexts.end()) ? specialTexts.at(key)
 																			 : "";
 
 		if (value.empty())
-			continue; // Falls kein Wert gefunden, überspringen
+			continue; // skip empty values
 
-		// 🔥 Text mit einer eigenen Funktion zeichnen
 		this->drawText(box, value);
 	}
 }
@@ -258,6 +257,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 		uint16_t *pixel = (uint16_t *)&bmpBuffer[i * 2];
 		if (*pixel == 0xFFFF) // Wenn der Pixel weiß ist
 		{
+			std::cout << "Override Background from BMP" << std::endl;
 			*pixel = backGroundColor; // Ersetze durch die gewählte Farbe
 		}
 	}
@@ -274,7 +274,7 @@ void vigorTFT::drawText(const TextBox &box, const std::string &text)
 {
 	this->setCursor(box.x, box.y);
 
-	// Schriftart abhängig von der Höhe setzen
+	// Font selection
 	if (box.height == 16)
 		this->setFont(font_retro);
 	else if (box.height == 32)

@@ -69,6 +69,7 @@ enum class HMIState
 	ERROR
 };
 
+// Section ::  TextBoxes set Coordinates and valid States
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},												  // INIT
 	{"hmi_calibrated", {"INIT", 8, 10, 304, 32}},											  // INIT
@@ -111,22 +112,21 @@ RedisData readRedis()
 		"hmi_gps", "hmi_state", "hmi_fehler"};
 
 	// only for testing
-
-	//  Verfügbare States für hmi_state (du kannst hier gerne anpassen)
+	// possible States
 	std::vector<std::string> possibleStates = {
 		"INIT", "CALIB", "SEMI", "MANUAL_L", "MANUAL_R", "EDGE_L", "EDGE_R", "AUTO", "ERROR"};
 
-	// Zufalls-Seed setzen
+	// Random values for testing
 	std::srand(std::time(nullptr));
 
-	// Jeden Key mit einem zufälligen Wert füllen
+	// Keys filled with random values
 	for (const auto &key : keys)
 	{
 		std::string value;
 
 		if (key == "hmi_state")
 		{
-			// Einen zufälligen State auswählen
+			// State choice
 			value = possibleStates[std::rand() % possibleStates.size()];
 		}
 		else if (key == "hmi_feldname")
@@ -141,16 +141,16 @@ RedisData readRedis()
 		}
 		else if (key == "hmi_fehler")
 		{
-			value = "Fehlercode " + std::to_string(100 + std::rand() % 900);
+			value = "Fehlercode 0X.. ";
 		}
 		else
 		{
-			// Zufallszahl als String (1–4 Stellen)
+			// Random number 0-9999
 			int number = std::rand() % 10000; // 0–9999
 			value = std::to_string(number);
 		}
 
-		// Wert in Redis schreiben
+		// Write to Redis
 		redisReply *reply = (redisReply *)redisCommand(c, "SET %s %s", key.c_str(), value.c_str());
 		if (reply)
 			freeReplyObject(reply);
@@ -176,7 +176,6 @@ RedisData readRedis()
 // State Machine Execution
 void runHMIStateMachine(HMIState state, const RedisData &data)
 {
-	// Den aktuellen State als String bekommen
 	std::string currentStateString;
 	switch (state)
 	{
@@ -212,7 +211,7 @@ void runHMIStateMachine(HMIState state, const RedisData &data)
 		return;
 	}
 
-	// TFT-Display basierend auf dem aktuellen State updaten
+	// TFT-Display create
 	myVigorTFT.createDisplay(data, textBoxes, currentStateString, myTFTHeight, myTFTWidth);
 }
 
@@ -236,16 +235,14 @@ int main()
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
 
-	// 🏁 1️⃣ Starte mit dem Startup-State
 	HMIState currentState = HMIState::STARTUP;
-	runHMIStateMachine(currentState); // Leeres `data`, da Startup keine Daten braucht
+	runHMIStateMachine(currentState); // no data
 
 	while (true)
 	{
-		// 🔄 2️⃣ Redis-Daten auslesen
+		// read redis data
 		RedisData data = readRedis();
 
-		// 📌 Versuchen, den aktuellen State aus Redis zu lesen
 		auto stateIt = data.find("hmi_state");
 		if (stateIt == data.end())
 		{
@@ -254,10 +251,8 @@ int main()
 		}
 		else
 		{
-			// 📝 State aus Redis holen
 			const std::string &stateString = stateIt->second;
 
-			// 🔄 String-State in `HMIState` umwandeln
 			if (stateString == "INIT")
 				currentState = HMIState::INIT;
 			else if (stateString == "CALIB")
@@ -277,13 +272,15 @@ int main()
 			else if (stateString == "ERROR")
 				currentState = HMIState::ERROR;
 			else
-				currentState = HMIState::STARTUP; // Fallback-Wert, falls ungültig
+				currentState = HMIState::STARTUP; // Fallback
 		}
 
-		// 🏁 3️⃣ Neuen Zustand mit Daten aus Redis ausführen
 		runHMIStateMachine(currentState, data);
 
-		// 🕒 Wartezeit zwischen den State-Updates
+		/*!!IMPOTANT!!!*/
+		////////////////
+		// for operation mode set sleep-for to 500ms
+		////////////////
 		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 	}
 
