@@ -90,19 +90,19 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16}},						 // EDGEL_R/AUTO
 	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16}},						 // EDGEL_R/AUTO
 	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16}},					 // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
-	{"hmi_state", {10, 130, 220, 20}},											 // only for Statemachine
-	{"hmi_fehler_code", {"ERROR", 16, 16, 288, 32}},							 // ERROR code 18 Zeichen 16x32
-	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16}},						 // ERROR firstline 36 Zeichen 8x16
-	{"hmi_fehler_secondline", {"ERROR", 16, 72, 288, 16}},						 // ERROR secondline 36 Zeichen 8x16
-	{"hmi_button1_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 14, 48, 32}},	 // /MAN/L_R/EDGEL_R  "auf"
-	{"hmi_button1_1Z", {"CALIB", 294, 14, 16, 32}},								 // CALIB "+"
-	{"hmi_button2_2Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 278, 74, 32, 32}},	 // MAN/L_R/EDGEL_R "zu"
-	{"hmi_button2_1Z", {"CALIB", 294, 74, 16, 32}},								 // CALIB "-"
-	{"hmi_button3_2Z", {"INIT", 278, 134, 32, 32}},								 // INIT "JA"
-	{"hmi_button4_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 194, 48, 32}},	 // MAN/L_R/EDGEL_R "L/R"
-	{"hmi_button4_4Z", {"INIT", 246, 194, 64, 32}},								 // INIT "NEIN"
-	{"hmi_button4_8Z", {"CALIB", 182, 194, 64, 32}},							 // CALIB "abdrehen"
-	{"hmi_button4_10Z", {"ERROR", 1150, 194, 64, 32}},							 // ERROR "quittieren"
+	//{"hmi_state", {"",10, 130, 220, 20}},											 // only for Statemachine
+	{"hmi_fehler_code", {"ERROR", 16, 16, 288, 32}},						   // ERROR code 18 Zeichen 16x32
+	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16}},					   // ERROR firstline 36 Zeichen 8x16
+	{"hmi_fehler_secondline", {"ERROR", 16, 72, 288, 16}},					   // ERROR secondline 36 Zeichen 8x16
+	{"hmi_button1_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 14, 48, 32}},  // /MAN/L_R/EDGEL_R  "auf"
+	{"hmi_button1_1Z", {"CALIB", 294, 14, 16, 32}},							   // CALIB "+"
+	{"hmi_button2_2Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 278, 74, 32, 32}},  // MAN/L_R/EDGEL_R "zu"
+	{"hmi_button2_1Z", {"CALIB", 294, 74, 16, 32}},							   // CALIB "-"
+	{"hmi_button3_2Z", {"INIT", 278, 134, 32, 32}},							   // INIT "JA"
+	{"hmi_button4_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 194, 48, 32}}, // MAN/L_R/EDGEL_R "L/R"
+	{"hmi_button4_4Z", {"INIT", 246, 194, 64, 32}},							   // INIT "NEIN"
+	{"hmi_button4_8Z", {"CALIB", 182, 194, 64, 32}},						   // CALIB "abdrehen"
+	{"hmi_button4_10Z", {"ERROR", 1150, 194, 64, 32}},						   // ERROR "quittieren"
 };
 
 RedisData readRedis()
