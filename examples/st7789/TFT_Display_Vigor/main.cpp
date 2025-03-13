@@ -238,7 +238,7 @@ int main()
 
 	// 🏁 1️⃣ Starte mit dem Startup-State
 	HMIState currentState = HMIState::STARTUP;
-	runHMIStateMachine(currentState, RedisData()); // Leeres `data`, da Startup keine Daten braucht
+	runHMIStateMachine(currentState); // Leeres `data`, da Startup keine Daten braucht
 
 	while (true)
 	{
