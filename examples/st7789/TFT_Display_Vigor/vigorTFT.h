@@ -15,7 +15,6 @@
 #include "ST7789_TFT_LCD_RVL.hpp"
 #include <hiredis/hiredis.h>
 #include <unordered_map>
-#include "redisTypes.h"
 
 // Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
 #define buttonGrey 0x52EC
