@@ -71,6 +71,7 @@ enum class HMIState
 
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48}},								  // INIT
+	{"hmi_calibrated", {"INIT", 8, 10, 304, 32}},							  // INIT
 	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;AUTO", 42, 65, 32, 16}},  // CALIB/SEMI/MAN/L/EDGEL/AUTO
 	{"hmi_vend_ist_R", {"CALIB;SEMI;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16}}, // SEMI/MAN/L_R/EDGEL_R/AUTO
 	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48}},							  // CALIB

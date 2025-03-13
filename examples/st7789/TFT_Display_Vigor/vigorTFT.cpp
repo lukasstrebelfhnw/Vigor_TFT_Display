@@ -82,7 +82,7 @@ void vigorTFT::createDisplay(
 
 	// 🔥 Lookup-Tabelle für spezielle Texte
 	std::unordered_map<std::string, std::string> specialTexts = {
-		{"hmi_button1_3Z", "auf"}, {"hmi_button1_1Z", "+"}, {"hmi_button2_2Z", "zu"}, {"hmi_button2_1Z", "-"}, {"hmi_button3_2Z", "JA"}, {"hmi_button4_3Z", "L/R"}, {"hmi_button4_4Z", "NEIN"}, {"hmi_button4_8Z", "abdrehen"}, {"hmi_button4_10Z", "quittieren"}};
+		{"hmi_button1_3Z", "auf"}, {"hmi_button1_1Z", "+"}, {"hmi_button2_2Z", "zu"}, {"hmi_button2_1Z", "-"}, {"hmi_button3_2Z", "JA"}, {"hmi_button4_3Z", "L/R"}, {"hmi_button4_4Z", "NEIN"}, {"hmi_button4_8Z", "abdrehen"}, {"hmi_button4_10Z", "quittieren"}, {"hmi_calibrated", "richtig kalibriert?"}, {"hmi_vend_ist_R", data.at("hmi_vend_ist")}, {"hmi_vend_ist_L", data.at("hmi_vend_ist")}};
 
 	// Iteriere über alle TextBoxen
 	for (const auto &[key, box] : textBoxes)
