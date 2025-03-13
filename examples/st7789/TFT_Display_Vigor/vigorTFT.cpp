@@ -122,6 +122,240 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 				this->setTextColor(buttonRand, backGroundColor);
 				this->print(value);
 			}
+			else if (vallt == "hmi_button1_3Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("auf");
+			}
+			else if (vallt == "hmi_button1_1Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("+");
+			}
+			else if (vallt == "hmi_button2_2Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("zu");
+			}
+			else if (vallt == "hmi_button2_1Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("-");
+			}
+			else if (vallt == "hmi_button3_2Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("JA");
+			}
+			else if (vallt == "hmi_button4_3Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("L/R");
+			}
+			else if (vallt == "hmi_button4_4Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("NEIN");
+			}
+			else if (vallt == "hmi_button4_8Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("abdrehen");
+			}
+			else if (vallt == "hmi_button4_10Z")
+			{
+				const std::string &value = valIt->second;
+
+				// Display setzen
+				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
+				this->setTextColor(buttonRand, backGroundColor);
+				this->print("quittieren");
+			}
 			else
 			{
 				// Falls der Key nicht existiert

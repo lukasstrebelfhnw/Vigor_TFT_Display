@@ -84,7 +84,6 @@ std::unordered_map<std::string, TextBox> textBoxes = {
 	//{"hmi_state", {"",10, 130, 220, 20}},											 // only for Statemachine
 	{"hmi_fehler", {"ERROR", 16, 16, 288, 32}},								   // ERROR code 18 Zeichen 16x32
 	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16}},					   // ERROR firstline 36 Zeichen 8x16
-	{"hmi_fehler_secondline", {"ERROR", 16, 72, 288, 16}},					   // ERROR secondline 36 Zeichen 8x16
 	{"hmi_button1_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 14, 48, 32}},  // /MAN/L_R/EDGEL_R  "auf"
 	{"hmi_button1_1Z", {"CALIB", 294, 14, 16, 32}},							   // CALIB "+"
 	{"hmi_button2_2Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 278, 74, 32, 32}},  // MAN/L_R/EDGEL_R "zu"
