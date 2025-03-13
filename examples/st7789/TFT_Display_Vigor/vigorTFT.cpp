@@ -102,6 +102,23 @@ void vigorTFT::createDisplay(const std::unordered_map<std::string, std::string> 
 
 				// Display setzen
 				this->setCursor(box.x, box.y);
+				if (box.height == 16)
+				{
+					this->setFont(font_retro);
+				}
+				else if (box.height == 32)
+				{
+					this->setFont(font_groTesk);
+				}
+				else if (box.height == 48)
+				{
+					this->setFont(font_mint);
+				}
+				else
+				{
+					std::cerr << "Error: Font size not defined" << std::endl;
+					this->setFont(font_retro);
+				};
 				this->setFont(font_retro);
 				this->setTextColor(buttonRand, backGroundColor);
 				this->print(value);
