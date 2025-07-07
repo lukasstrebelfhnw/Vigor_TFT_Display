@@ -20,7 +20,7 @@
 #define buttonSemi 0xB666
 #define buttonMan 0xFE88
 #define buttonRand 0x543A
-#define backGroundColor 0x9D14
+#define backGroundColor 0x0000
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
 
