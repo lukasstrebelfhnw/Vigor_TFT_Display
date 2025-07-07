@@ -22,16 +22,7 @@
 #include <unordered_map>
 #include "TextBox.h"
 
-// Color ::  Defines
-#define buttonGrey 0x52EC
-#define buttonAuto 0x1389
-#define buttonSemi 0xB666
-#define buttonMan 0xFE88
-#define buttonRand 0x543A
-#define backgroundColor 0x0000
-#define vigorDGreen 0x73E6
-#define vigorLGreen 0xADE6
-// Delay :: Defines
+
 #define cycleTimeMs 3000 // Zykluszeit in Millisekunden
 // Picture ::  Defines
 #define logoVigorWidth 240	// Set Width of Picture

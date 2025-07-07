@@ -22,7 +22,7 @@
 #define buttonAuto 0x1389
 #define buttonSemi 0xB666
 #define buttonMan 0xFE88
-#define buttonRand 0x543A
+#define buttonRand 0xFFE0
 #define backGroundColor 0x0000
 #define vigorDGreen 0x73E6
 #define vigorLGreen 0xADE6
