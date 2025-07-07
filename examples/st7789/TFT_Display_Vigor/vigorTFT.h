@@ -37,7 +37,7 @@ public:
 
   // Creates Display Methods
   void createInitDisplay();
-  void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
+  void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
   void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::string &currentState);
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File

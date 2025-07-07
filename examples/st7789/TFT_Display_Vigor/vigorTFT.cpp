@@ -38,7 +38,7 @@ void vigorTFT::createInitDisplay()
 	this->setCursor(x * 2, y + logoVigorHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
 	this->setTextColor(RVLC_YELLOW, RVLC_BLACK);							// select color
-	this->print(versionVigor);
+	this->print(vigorVersion);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
