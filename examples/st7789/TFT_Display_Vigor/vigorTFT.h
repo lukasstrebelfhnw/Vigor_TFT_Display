@@ -4,26 +4,20 @@
 
 #pragma once
 
-#include <ctime>
 #include <chrono>
 #include <thread>
-#include <string>
 #include <iostream>
 #include <cstring>
-#include "ST7789_TFT_LCD_RVL.hpp"
 #include <hiredis/hiredis.h>
-#include <unordered_map>
+#include "ST7789_TFT_LCD_RVL.hpp"
 #include "layout.h"
 
-// Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
-#define buttonGrey 0x52EC
-#define buttonAuto 0x1389
-#define buttonSemi 0xB666
-#define buttonMan 0xFE88
-#define buttonRand 0xFFE0
-#define backGroundColor 0x0000
-#define vigorDGreen 0x73E6
-#define vigorLGreen 0xADE6
+#define myTFTWidth 240
+#define myTFTHeight 320
+#define logoVigorWidth 240	
+#define logoVigorHeight 122
+#define pathLogoVigor "bitmap/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
+const std::string vigorVersion = "Vigor TFT version 1.0";
 
 // Datatype definitions
 using message = std::string;
@@ -42,7 +36,7 @@ public:
   ~vigorTFT();
 
   // Creates Display Methods
-  void createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
+  void createInitDisplay();
   void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
   void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::string &currentState);
   // Set Bitmap Picture

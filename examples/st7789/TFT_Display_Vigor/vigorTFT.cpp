@@ -14,7 +14,7 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay()
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
@@ -28,23 +28,23 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	uint16_t y = 15;			   // Set y Poition Logo effective Value left top corner Display
 	uint16_t loadingBarHight = 38; // Important if is this value bigger than (fontHigh+1+2*lineThickness)
 	uint16_t loadingBarWidth = myTFTWidth - (2 * x);
-	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
+	uint16_t spaceMean = ((myTFTHeight - y - logoVigorHeight - loadingBarHight - versionFontHight) / 3);
 	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
-	uint16_t versionText_y = y + bitMapHeight + 2 * spaceMean + loadingBarHight;			// Set y Poition versionText effective Value left top corner Display
+	uint16_t versionText_y = y + logoVigorHeight + 2 * spaceMean + loadingBarHight;			// Set y Poition versionText effective Value left top corner Display
 
 	// Buils Display
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-	this->fillScreen(backGroundColor);
-	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
+	this->fillScreen(RVLC_BLACK);
+	this->drawBMPPicture(x, y, logoVigorWidth, logoVigorHeight, pathLogoVigor);
 
-	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
+	this->setCursor(x * 2, y + logoVigorHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
-	this->setTextColor(buttonRand, backGroundColor);							// select color
+	this->setTextColor(RVLC_YELLOW, RVLC_BLACK);							// select color
 	this->print(versionVigor);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x, (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
+		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_BLACK, buttonAuto, buttonSemi, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	this->fillScreen(RVLC_BLACK);
@@ -59,7 +59,7 @@ void vigorTFT::createDisplay(
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-	this->fillScreen(backGroundColor);
+	this->fillScreen(RVLC_BLACK);
 
 	// get textboxes from screens for current state
 	auto stateIt = screens.find(currentState);
@@ -93,11 +93,6 @@ void vigorTFT::createDisplay(
 		}
 	}
 }
-
-/*
-TODO:
-Uptade this Function with font size from common_data.h
-*/
 
 void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
@@ -204,7 +199,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 		uint16_t *pixel = (uint16_t *)&bmpBuffer[i * 2];
 		if (*pixel == 0xFFFF) // Wenn der Pixel weiß ist
 		{
-			*pixel = backGroundColor; // Ersetze durch die gewählte Farbe
+			*pixel = RVLC_BLACK; // Ersetze durch die gewählte Farbe
 		}
 	}
 
@@ -228,7 +223,7 @@ void vigorTFT::drawText(const TextBoxInstance &textBox, const std::string &text)
 	const TextBoxDefinition &textBoxDef = it->second;
 	this->setCursor(textBoxDef.x, textBoxDef.y);
 	this->setFont(font_retro); // Set the font to retro
-	this->setTextColor(textBox.color, backGroundColor); // Set text color and background
+	this->setTextColor(textBox.color, RVLC_BLACK); // Set text color and background
 	if (text.empty())
 	{
 		this->print(textBoxDef.defaultText); // Print the default text

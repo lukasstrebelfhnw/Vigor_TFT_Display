@@ -2,36 +2,16 @@
 	@file examples/st7789/Hello_world/main.cpp
 	@brief Hello World hardware SPI 0 test
 	@author Gavin Lyons.
-	@note See USER OPTIONS 1-3 in SETUP function, run as sudo
-		Tests hardware SPI 0
-	@test
-		-# 101 Hello World Hardware SPI
 */
 
 // Section ::  libraries
 #include <bcm2835.h>
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <hiredis/hiredis.h>
 #include "vigorTFT.h"
-#include <vector>
-#include <unordered_map>
 
-#define cycleTimeMs 3000 // Zykluszeit in Millisekunden
-// Picture ::  Defines
-#define logoVigorWidth 240	// Set Width of Picture
-#define logoVigorHeight 122 // Set Height of Picture
-#define pathLogoVigor "bitmap/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
 
-// Temporary ::  Defines
-const std::string vigorVersion = "Vigor TFT version 1.0";
-
-// Display size in pixels
-#define myTFTWidth 240
-#define myTFTHeight 320
 // Initialize TFT
 vigorTFT myVigorTFT;
+
 // Function to read from Redis
 using RedisData = std::unordered_map<std::string, std::string>;
 
@@ -72,14 +52,12 @@ int main()
 {
 	if (SetupHWSPI() != 0)
 		return -1; // Hardware SPI 0 initialisieren fehlgeschlagen
-
 	
 	std::cout << "State: StartUp" << std::endl;
-	myVigorTFT.createInitDisplay(logoVigorWidth, logoVigorHeight, pathLogoVigor, vigorVersion, myTFTWidth, myTFTHeight);
+	myVigorTFT.createInitDisplay();
 
 	while (true)
 	{
-		// read redis data
 		RedisData data = readRedis();
 
 		auto stateIt = data.find("hmi_state");
@@ -93,11 +71,7 @@ int main()
 			myVigorTFT.createDisplay(data, stateString);
 		}
 
-		/*!!IMPOTANT!!!*/
-		////////////////
-		// for operation mode set sleep-for to 500ms
-		////////////////
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
 
 	return 0;
