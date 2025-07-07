@@ -19,7 +19,6 @@ void vigorTFT::createInitDisplay()
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
 	uint8_t versionFontHight = 16; // font_retro 16
-	uint8_t versionFontWidth = 8;  // font_retro 8
 	// End Font definitions
 
 	// Set Display parameter
@@ -42,7 +41,7 @@ void vigorTFT::createInitDisplay()
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_BLACK, RVLC_GREEN, RVLC_DGREEN, i, true);
+		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_GREEN, RVLC_DGREEN, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	this->fillScreen(RVLC_BLACK);
