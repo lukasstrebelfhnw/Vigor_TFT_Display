@@ -29,98 +29,116 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
 std::unordered_map<std::string, Screen> screens = {
     {
         "INIT", Screen{
-            {"tb_richtig", RVLC_YELLOW},
-            {"tb_vend_ist", RVLC_YELLOW}
+            {        
+                {"tb_richtig", RVLC_YELLOW},
+                {"tb_vend_ist", RVLC_YELLOW}
+            }
         }
     },
     {
         "CALIB", Screen{
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_vend_soll", RVLC_YELLOW},
-            {"tb_b1_+", RVLC_YELLOW},
-            {"tb_b2_-", RVLC_YELLOW},
-            {"tb_b3_auf", RVLC_YELLOW},
-            {"tb_b4_zu", RVLC_YELLOW}
+            {
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_soll", RVLC_YELLOW},
+                {"tb_b1_+", RVLC_YELLOW},
+                {"tb_b2_-", RVLC_YELLOW},
+                {"tb_b3_auf", RVLC_YELLOW},
+                {"tb_b4_zu", RVLC_YELLOW}
+            }
         }
     },
     {
         "MANUAL_L", Screen{
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_YELLOW},
-            {"tb_pos_r", RVLC_GREY},
-            {"tb_b1_auf", RVLC_YELLOW},
-            {"tb_b2_zu", RVLC_YELLOW},
-            {"tb_b4_lr", RVLC_YELLOW}
+            {
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_YELLOW},
+                {"tb_pos_r", RVLC_GREY},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW},
+                {"tb_b4_lr", RVLC_YELLOW}
+            }
         }
     },
     {
         "MANUAL_R", Screen{
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_GREY},
-            {"tb_pos_r", RVLC_YELLOW},
-            {"tb_b1_auf", RVLC_YELLOW},
-            {"tb_b2_zu", RVLC_YELLOW},
-            {"tb_b4_lr", RVLC_YELLOW}
+            {
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_GREY},
+                {"tb_pos_r", RVLC_YELLOW},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW},
+                {"tb_b4_lr", RVLC_YELLOW}
+            }
         }
     },
     {
         "SEMI", Screen{
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_YELLOW},
-            {"tb_pos_r", RVLC_YELLOW},
-            {"tb_soll_l", RVLC_YELLOW},
-            {"tb_soll_r", RVLC_YELLOW},
-            {"tb_b1_auf", RVLC_YELLOW},
-            {"tb_b2_zu", RVLC_YELLOW}
+            {
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_YELLOW},
+                {"tb_pos_r", RVLC_YELLOW},
+                {"tb_soll_l", RVLC_YELLOW},
+                {"tb_soll_r", RVLC_YELLOW},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW}
+            }
         }
     },
     {
         "AUTO", Screen{
-            {"tb_feldname", RVLC_YELLOW},
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_YELLOW},
-            {"tb_pos_r", RVLC_YELLOW},
-            {"tb_soll_l", RVLC_YELLOW},
-            {"tb_soll_r", RVLC_YELLOW},
-            {"tb_speed", RVLC_YELLOW},
-            {"tb_gps", RVLC_YELLOW}
+            {
+                {"tb_feldname", RVLC_YELLOW},
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_YELLOW},
+                {"tb_pos_r", RVLC_YELLOW},
+                {"tb_soll_l", RVLC_YELLOW},
+                {"tb_soll_r", RVLC_YELLOW},
+                {"tb_speed", RVLC_YELLOW},
+                {"tb_gps", RVLC_YELLOW}
+            }
         }
     },
     {
         "EDGE_L", Screen{
-            {"tb_feldname", RVLC_YELLOW},
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_YELLOW},
-            {"tb_pos_r", RVLC_GREY},
-            {"tb_soll_l", RVLC_YELLOW},
-            {"tb_soll_r", RVLC_GREY},
-            {"tb_speed", RVLC_YELLOW},
-            {"tb_gps", RVLC_YELLOW},
-            {"tb_b1_auf", RVLC_YELLOW},
-            {"tb_b2_zu", RVLC_YELLOW},
-            {"tb_b4_lr", RVLC_YELLOW}
+            {
+                {"tb_feldname", RVLC_YELLOW},
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_YELLOW},
+                {"tb_pos_r", RVLC_GREY},
+                {"tb_soll_l", RVLC_YELLOW},
+                {"tb_soll_r", RVLC_GREY},
+                {"tb_speed", RVLC_YELLOW},
+                {"tb_gps", RVLC_YELLOW},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW},
+                {"tb_b4_lr", RVLC_YELLOW}
+            }
         }
     },
     {
         "EDGE_R", Screen{
-            {"tb_feldname", RVLC_YELLOW},
-            {"tb_vend_ist", RVLC_GREY},
-            {"tb_pos_l", RVLC_GREY},
-            {"tb_pos_r", RVLC_YELLOW},
-            {"tb_soll_l", RVLC_GREY},
-            {"tb_soll_r", RVLC_YELLOW},
-            {"tb_speed", RVLC_YELLOW},
-            {"tb_gps", RVLC_YELLOW},
-            {"tb_b1_auf", RVLC_YELLOW},
-            {"tb_b2_zu", RVLC_YELLOW},
-            {"tb_b4_lr", RVLC_YELLOW}
+            {
+                {"tb_feldname", RVLC_YELLOW},
+                {"tb_vend_ist", RVLC_GREY},
+                {"tb_pos_l", RVLC_GREY},
+                {"tb_pos_r", RVLC_YELLOW},
+                {"tb_soll_l", RVLC_GREY},
+                {"tb_soll_r", RVLC_YELLOW},
+                {"tb_speed", RVLC_YELLOW},
+                {"tb_gps", RVLC_YELLOW},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW},
+                {"tb_b4_lr", RVLC_YELLOW}
+            }
         }
     },
     {
         "ERROR", Screen{
-            {"tb_fehler", RVLC_RED},
-            {"tb_fehlerbeschrieb", RVLC_RED},
-            {"tb_b4_quittieren", RVLC_YELLOW}
+            {
+                {"tb_fehler", RVLC_RED},
+                {"tb_fehlerbeschrieb", RVLC_RED},
+                {"tb_b4_quittieren", RVLC_YELLOW}
+            }
         }
     }
 };
