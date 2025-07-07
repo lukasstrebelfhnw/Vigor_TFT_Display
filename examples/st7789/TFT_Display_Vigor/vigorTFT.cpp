@@ -55,7 +55,7 @@ void vigorTFT::createDisplay(
 	const std::string &currentState)
 {
 	// get global variable screens from layout
-	extern std::vector<Screen> screens;
+	extern std::unordered_map<std::string, Screen> screens;
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
