@@ -44,7 +44,7 @@ void vigorTFT::createInitDisplay()
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_BLACK, buttonAuto, buttonSemi, i, true);
+		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_BLACK, RVLC_GREEN, RVLC_DGREEN, i, true);
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	this->fillScreen(RVLC_BLACK);
