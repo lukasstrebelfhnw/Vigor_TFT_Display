@@ -1,7 +1,9 @@
 #include "layout.h"
 
 std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
-    {"tb_vend_ist", {"hmi_vend_ist", "1234", 10, 96, 96, 48}},
+    {"tb_vend_ist", {"hmi_vend_ist", "1234", 42, 48, 96, 48}},
+    {"tb_vend_ist_l", {"hmi_vend_ist", "1234", 42, 48, 96, 48}},
+    {"tb_vend_ist_r", {"hmi_vend_ist", "1234", 172, 48, 96, 48}},
     {"tb_richtig", {"", "richtig kalibriert?", 8, 10, 304, 32}},
     {"tb_vend_soll", {"hmi_vend_soll", "1234", 10, 96, 128, 48}},
     {"tb_pos_l", {"hmi_pos_l", "12%", 10, 96, 128, 48}},
@@ -31,7 +33,9 @@ std::unordered_map<std::string, Screen> screens = {
         "INIT", Screen{
             {        
                 {"tb_richtig", RVLC_YELLOW},
-                {"tb_vend_ist", RVLC_YELLOW}
+                {"tb_vend_ist", RVLC_YELLOW},
+                {"tb_b3_ja", RVLC_YELLOW},
+                {"tb_b4_nein", RVLC_YELLOW}
             }
         }
     },
@@ -50,7 +54,8 @@ std::unordered_map<std::string, Screen> screens = {
     {
         "MANUAL_L", Screen{
             {
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_YELLOW},
                 {"tb_pos_r", RVLC_GREY},
                 {"tb_b1_auf", RVLC_YELLOW},
@@ -62,7 +67,8 @@ std::unordered_map<std::string, Screen> screens = {
     {
         "MANUAL_R", Screen{
             {
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_GREY},
                 {"tb_pos_r", RVLC_YELLOW},
                 {"tb_b1_auf", RVLC_YELLOW},
@@ -74,7 +80,8 @@ std::unordered_map<std::string, Screen> screens = {
     {
         "SEMI", Screen{
             {
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_YELLOW},
                 {"tb_pos_r", RVLC_YELLOW},
                 {"tb_soll_l", RVLC_YELLOW},
@@ -88,7 +95,8 @@ std::unordered_map<std::string, Screen> screens = {
         "AUTO", Screen{
             {
                 {"tb_feldname", RVLC_YELLOW},
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_YELLOW},
                 {"tb_pos_r", RVLC_YELLOW},
                 {"tb_soll_l", RVLC_YELLOW},
@@ -102,7 +110,8 @@ std::unordered_map<std::string, Screen> screens = {
         "EDGE_L", Screen{
             {
                 {"tb_feldname", RVLC_YELLOW},
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_YELLOW},
                 {"tb_pos_r", RVLC_GREY},
                 {"tb_soll_l", RVLC_YELLOW},
@@ -119,7 +128,8 @@ std::unordered_map<std::string, Screen> screens = {
         "EDGE_R", Screen{
             {
                 {"tb_feldname", RVLC_YELLOW},
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
+                {"tb_vend_ist_r", RVLC_GREY},
                 {"tb_pos_l", RVLC_GREY},
                 {"tb_pos_r", RVLC_YELLOW},
                 {"tb_soll_l", RVLC_GREY},
