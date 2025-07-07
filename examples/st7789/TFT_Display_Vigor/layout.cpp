@@ -28,13 +28,13 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
 
 std::unordered_map<std::string, Screen> screens = {
     {
-        "INIT", {
+        "INIT", Screen{
             {"tb_richtig", RVLC_YELLOW},
             {"tb_vend_ist", RVLC_YELLOW}
         }
     },
     {
-        "CALIB", {
+        "CALIB", Screen{
             {"tb_vend_ist", RVLC_GREY},
             {"tb_vend_soll", RVLC_YELLOW},
             {"tb_b1_+", RVLC_YELLOW},
@@ -44,7 +44,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "MANUAL_L", {
+        "MANUAL_L", Screen{
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_YELLOW},
             {"tb_pos_r", RVLC_GREY},
@@ -54,7 +54,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "MANUAL_R", {
+        "MANUAL_R", Screen{
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_GREY},
             {"tb_pos_r", RVLC_YELLOW},
@@ -64,7 +64,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "SEMI", {
+        "SEMI", Screen{
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_YELLOW},
             {"tb_pos_r", RVLC_YELLOW},
@@ -75,7 +75,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "AUTO", {
+        "AUTO", Screen{
             {"tb_feldname", RVLC_YELLOW},
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_YELLOW},
@@ -87,7 +87,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "EDGE_L", {
+        "EDGE_L", Screen{
             {"tb_feldname", RVLC_YELLOW},
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_YELLOW},
@@ -102,7 +102,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "EDGE_R", {
+        "EDGE_R", Screen{
             {"tb_feldname", RVLC_YELLOW},
             {"tb_vend_ist", RVLC_GREY},
             {"tb_pos_l", RVLC_GREY},
@@ -117,7 +117,7 @@ std::unordered_map<std::string, Screen> screens = {
         }
     },
     {
-        "ERROR", {
+        "ERROR", Screen{
             {"tb_fehler", RVLC_RED},
             {"tb_fehlerbeschrieb", RVLC_RED},
             {"tb_b4_quittieren", RVLC_YELLOW}
