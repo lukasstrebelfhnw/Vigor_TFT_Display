@@ -108,7 +108,8 @@ RedisData readRedis()
 		"hmi_soll_l", "hmi_soll_r", "hmi_feldname", "hmi_speed",
 		"hmi_gps", "hmi_state", "hmi_fehler"};
 
-	// only for testing
+	
+	/* only for testing
 	// possible States
 	std::vector<std::string> possibleStates = {
 		"INIT", "CALIB", "SEMI", "MANUAL_L", "MANUAL_R", "EDGE_L", "EDGE_R", "AUTO", "ERROR"};
@@ -154,6 +155,7 @@ RedisData readRedis()
 	}
 
 	std::cout << "Zufallswerte in Redis geschrieben." << std::endl;
+	*/
 
 	// End of testing
 
