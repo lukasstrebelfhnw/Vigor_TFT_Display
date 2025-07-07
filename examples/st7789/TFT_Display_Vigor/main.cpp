@@ -36,8 +36,8 @@
 // Picture ::  Defines
 #define logoVigorWidth 240	// Set Width of Picture
 #define logoVigorHeight 122 // Set Height of Picture
-// #define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
-#define pathLogoVigor "bitmap/bitmap16images/Vigor_Logo_Display.BMP"
+// #define pathLogoVigor "bitmap/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
+#define pathLogoVigor "bitmap/Vigor_Logo_Display.BMP"
 // Temporary ::  Defines
 const std::string vigorVersion = "Vigor TFT version 1.0";
 

@@ -3,26 +3,6 @@
 //
 
 #include "vigorTFT.h"
-#include <ctime>
-#include <chrono>
-#include <thread>
-#include <string>
-#include <iostream>
-#include <cstring>
-#include "ST7789_TFT_LCD_RVL.hpp"
-#include <hiredis/hiredis.h>
-#include <unordered_map>
-#include "TextBox.h"
-
-// Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
-#define buttonGrey 0x52EC
-#define buttonAuto 0x1389
-#define buttonSemi 0xB666
-#define buttonMan 0xFE88
-#define buttonRand 0x543A
-#define backGroundColor 0x0000
-#define vigorDGreen 0x73E6
-#define vigorLGreen 0xADE6
 
 vigorTFT::vigorTFT()
 {
