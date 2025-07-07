@@ -69,7 +69,7 @@ void vigorTFT::createDisplay(
 		return;
 	}
 	const auto &tb_instances = stateIt->second;
-	for (const auto &tb_instance : tb_instances)
+	for (const auto &tb_instance : tb_instances.elements)
 	{
 		// get textbox definition from textBoxDefs
 		auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
