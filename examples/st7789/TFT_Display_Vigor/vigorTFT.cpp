@@ -158,37 +158,6 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		}
 	}
 }
-/*not used function
-
-void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)
-{
-	this->fillRectangle(x, y, w, w, colorFrame);
-	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
-}
-
-void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
-{
-	this->setCursor(x, y);
-	this->setFont(font);		   // select font
-	this->setTextColor(textColor); // first text last background
-	this->print(text);
-}
-
-void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
-{
-	this->setCursor(x, y);
-	this->setFont(font); // select font
-	if (toggleColor)
-	{
-		this->setTextColor(toggleTextColor); // first text last background
-	}
-	else
-	{
-		this->setTextColor(textColor); // first text last background
-	}
-	this->print(text);
-}
-*/
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
@@ -265,6 +234,6 @@ void vigorTFT::drawText(const TextBox &box, const std::string &text)
 		this->setFont(font_retro);
 	}
 
-	this->setTextColor(buttonRand, backGroundColor);
+	this->setTextColor(box.color, backGroundColor);
 	this->print(text);
 }
