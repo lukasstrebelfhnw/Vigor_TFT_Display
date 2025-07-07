@@ -26,7 +26,7 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
 };
 
 
-std::vector<Screen> screens = {
+std::unordered_map<std::string, Screen> screens = {
     {
         "INIT", {
             {"tb_richtig", RVLC_YELLOW},

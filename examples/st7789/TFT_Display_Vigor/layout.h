@@ -20,6 +20,5 @@ struct TextBoxInstance {
 };
 
 struct Screen {
-    std::string name;
     std::vector<TextBoxInstance> elements;
 };
