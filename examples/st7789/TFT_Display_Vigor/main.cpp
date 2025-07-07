@@ -86,7 +86,6 @@ int main()
 		if (stateIt == data.end())
 		{
 			std::cerr << "Fehler: hmi_state nicht in Redis-Daten gefunden!" << std::endl;
-			currentState = HMIState::ERROR; // Fallback zu ERROR, falls kein State in Redis gefunden wird
 		}
 		else
 		{
