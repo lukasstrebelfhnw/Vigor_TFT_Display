@@ -29,8 +29,6 @@ void vigorTFT::createInitDisplay()
 	uint16_t loadingBarHight = 38; // Important if is this value bigger than (fontHigh+1+2*lineThickness)
 	uint16_t loadingBarWidth = myTFTWidth - (2 * x);
 	uint16_t spaceMean = ((myTFTHeight - y - logoVigorHeight - loadingBarHight - versionFontHight) / 3);
-	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
-	uint16_t versionText_y = y + logoVigorHeight + 2 * spaceMean + loadingBarHight;			// Set y Poition versionText effective Value left top corner Display
 
 	// Buils Display
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
@@ -94,7 +92,7 @@ void vigorTFT::createDisplay(
 	}
 }
 
-void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
+void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	display_Font_name_e font = font_orla;
 	uint16_t effectiveFontSizeWidth = 16;					   // this->getFontSizeWidth(&font);
@@ -102,9 +100,6 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	uint16_t effectiveBarHeight = effectiveFontSizeHeight + 1; // this->getFontSizeHeight(&font);
 	uint16_t effectiveBarWidth = w - 2 * lineThickness;
 	this->fillRectangle(x, y, w, h, colorFrame);
-
-	// Override the inner rectangle with the background color
-	// this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
 
 	if (showValue)
 	{
