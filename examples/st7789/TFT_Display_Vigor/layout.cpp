@@ -2,8 +2,8 @@
 
 std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
     {"tb_vend_ist", {"hmi_vend_ist", "1234", 42, 48, 96, 48}},
-    {"tb_vend_ist_l", {"hmi_vend_ist", "1234", 42, 48, 96, 48}},
-    {"tb_vend_ist_r", {"hmi_vend_ist", "1234", 172, 48, 96, 48}},
+    {"tb_vend_ist_l", {"hmi_vend_ist", "1234", 42, 48, 96, 16}},
+    {"tb_vend_ist_r", {"hmi_vend_ist", "1234", 172, 48, 96, 16}},
     {"tb_richtig", {"", "richtig kalibriert?", 8, 10, 304, 32}},
     {"tb_vend_soll", {"hmi_vend_soll", "1234", 10, 96, 128, 48}},
     {"tb_pos_l", {"hmi_pos_l", "12%", 10, 96, 128, 48}},
@@ -42,7 +42,7 @@ std::unordered_map<std::string, Screen> screens = {
     {
         "CALIB", Screen{
             {
-                {"tb_vend_ist", RVLC_GREY},
+                {"tb_vend_ist_l", RVLC_GREY},
                 {"tb_vend_soll", RVLC_YELLOW},
                 {"tb_b1_+", RVLC_YELLOW},
                 {"tb_b2_-", RVLC_YELLOW},

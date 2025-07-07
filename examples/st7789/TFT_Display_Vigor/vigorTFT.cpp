@@ -216,7 +216,23 @@ void vigorTFT::drawText(const TextBoxInstance &textBox, const std::string &text)
 	}
 	const TextBoxDefinition &textBoxDef = it->second;
 	this->setCursor(textBoxDef.x, textBoxDef.y);
-	this->setFont(font_retro); // Set the font to retro
+	if (textBoxDef.height == 16)
+	{
+		this->setFont(font_retro);
+	}
+	else if (textBoxDef.height == 32)
+	{
+		this->setFont(font_groTesk);
+	}
+	else if (textBoxDef.height == 48)
+	{
+		this->setFont(font_mint);
+	}
+	else
+	{
+		std::cout << "Error: Unsupported text box height: " << textBoxDef.height << std::endl;
+		return;
+	}
 	this->setTextColor(textBox.color, RVLC_BLACK); // Set text color and background
 	if (text.empty())
 	{
