@@ -28,7 +28,9 @@
 #define logoVigorWidth 240	// Set Width of Picture
 #define logoVigorHeight 122 // Set Height of Picture
 #define pathLogoVigor "bitmap/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
-#define defaultTextColor 0xFFFF // Default Text Color White
+#define defaultTextColor 0xFFE0 // Default Text Color Yellow 16-Bit RGB565
+#define greyTextColor 0x52EC // Grey Text Color 16-Bit RGB565.
+#define redTextColor 0xF800 // Red Text Color 16-Bit RGB565
 // Temporary ::  Defines
 const std::string vigorVersion = "Vigor TFT version 1.0";
 
@@ -64,19 +66,23 @@ enum class HMIState
 std::unordered_map<std::string, TextBox> textBoxes = {
 	{"hmi_vend_ist", {"INIT", 10, 96, 96, 48, defaultTextColor}},												 // INIT
 	{"hmi_calibrated", {"INIT", 8, 10, 304, 32, defaultTextColor}},											 // INIT
-	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 42, 65, 32, 16, defaultTextColor}}, // CALIB/SEMI/MAN/L/EDGEL/AUTO
-	{"hmi_vend_ist_R", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16, defaultTextColor}},		 // SEMI/MAN/L_R/EDGEL_R/AUTO
+	{"hmi_vend_ist_L", {"CALIB;SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 42, 65, 32, 16, greyTextColor}}, // CALIB/SEMI/MAN/L/EDGEL/AUTO
+	{"hmi_vend_ist_R", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 172, 65, 32, 16, greyTextColor}},		 // SEMI/MAN/L_R/EDGEL_R/AUTO
 	{"hmi_vend_soll", {"CALIB", 10, 96, 128, 48, defaultTextColor}},											 // CALIB
-	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 10, 96, 128, 48, defaultTextColor}},			 // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_pos_r", {"SEMI;MANUAL_L;EDGE_L;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48, defaultTextColor}},			 // SEMI/MAN/L_R/EDGEL_R/AUTO
-	{"hmi_soll_l", {"EDGE_L;EDGE_R;AUTO", 42, 159, 32, 16, defaultTextColor}},								 // EDGEL_R/AUTO
-	{"hmi_soll_r", {"EDGE_L;EDGE_R;AUTO", 172, 159, 32, 16, defaultTextColor}},								 // EDGEL_R/AUTO
+	{"hmi_pos_l", {"SEMI;MANUAL_L;EDGE_L;AUTO", 10, 96, 128, 48, defaultTextColor}},			 // Istwert links gelb
+	{"hmi_pos_l", {"MANUAL_R;EDGE_R", 10, 96, 128, 48, greyTextColor}},			 // Istwert links grau
+	{"hmi_pos_r", {"SEMI;MANUAL_R;EDGE_R;AUTO", 140, 96, 128, 48, defaultTextColor}},			 // Istwert rechts gelb
+	{"hmi_pos_r", {"MANUAL_L;EDGE_L", 140, 96, 128, 48, greyTextColor}},			 // Istwert rechts grau
+	{"hmi_soll_l", {"EDGE_L;AUTO", 42, 159, 32, 16, defaultTextColor}},								 // EDGEL_R/AUTO
+	{"hmi_soll_l", {"EDGE_R", 42, 159, 32, 16, greyTextColor}},								 // EDGEL_R/AUTO
+	{"hmi_soll_r", {"EDGE_R;AUTO", 172, 159, 32, 16, defaultTextColor}},								 // EDGEL_R/AUTO
+	{"hmi_soll_r", {"EDGE_L", 172, 159, 32, 16, greyTextColor}},								 // EDGEL_R/AUTO
 	{"hmi_speed", {"EDGE_L;EDGE_R;AUTO", 10, 214, 88, 16, defaultTextColor}},									 // EDGEL_R/AUTO
 	{"hmi_gps", {"EDGE_L;EDGE_R;AUTO", 148, 214, 88, 16, defaultTextColor}},									 // EDGEL_R/AUTO
 	{"hmi_feldname", {"EDGE_L;EDGE_R;AUTO", 10, 10, 120, 16, defaultTextColor}},								 // EDGEL_R/AUTO max Feldname 15 Zeichen 16x16
 	//{"hmi_state", {"",10, 130, 220, 20}},											 // only for Statemachine
-	{"hmi_fehler", {"ERROR", 16, 16, 288, 32, defaultTextColor}},								   // ERROR code 18 Zeichen 16x32
-	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16, defaultTextColor}},					   // ERROR firstline 36 Zeichen 8x16
+	{"hmi_fehler", {"ERROR", 16, 16, 288, 32, redTextColor}},								   // ERROR code 18 Zeichen 16x32
+	{"hmi_fehler_firstline", {"ERROR", 16, 52, 288, 16, redTextColor}},					   // ERROR firstline 36 Zeichen 8x16
 	{"hmi_button1_3Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 262, 14, 48, 32, defaultTextColor}},  // /MAN/L_R/EDGEL_R  "auf"
 	{"hmi_button1_1Z", {"CALIB", 294, 14, 16, 32, defaultTextColor}},							   // CALIB "+"
 	{"hmi_button2_2Z", {"MANUAL_L;MANUAL_R;EDGE_L;EDGE_R", 278, 74, 32, 32, defaultTextColor}},  // MAN/L_R/EDGEL_R "zu"
