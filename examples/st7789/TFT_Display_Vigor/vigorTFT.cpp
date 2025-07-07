@@ -52,45 +52,41 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 
 void vigorTFT::createDisplay(
 	const std::unordered_map<std::string, std::string> &data,
-	const std::unordered_map<std::string, TextBox> &textBoxes,
 	const std::string &currentState)
 {
 	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
 	this->fillScreen(backGroundColor);
 
-	// 🔥 Lookup-Tabelle für spezielle Texte
-	std::unordered_map<std::string, std::string> specialTexts = {
-		{"hmi_button1_3Z", "auf"}, {"hmi_button1_1Z", "+"}, {"hmi_button2_2Z", "zu"}, {"hmi_button2_1Z", "-"}, {"hmi_button3_2Z", "JA"}, {"hmi_button4_3Z", "L/R"}, {"hmi_button4_4Z", "NEIN"}, {"hmi_button4_8Z", "abdrehen"}, {"hmi_button4_10Z", "quittieren"}, {"hmi_calibrated", "richtig kalibriert?"}, {"hmi_vend_ist_R", data.at("hmi_vend_ist")}, {"hmi_vend_ist_L", data.at("hmi_vend_ist")}};
-
-	// Iteriere über alle TextBoxen
-	for (const auto &[key, box] : textBoxes)
+	// get textboxes from screens for current state
+	auto stateIt = screens.find(currentState);
+	if (stateIt == screens.end())
 	{
-		// valid Box visability
-		std::istringstream ss(box.useableSTATES);
-		std::string state;
-		bool stateMatches = false;
-
-		while (std::getline(ss, state, ';'))
+		std::cout << "Error: Current state not found in screens" << std::endl;
+		return;
+	}
+	const auto &tb_instances = stateIt->second;
+	for (const auto &tb_instance : tb_instances)
+	{
+		// get textbox definition from textBoxDefs
+		auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
+		if (textBoxDefIt == textBoxDefs.end())
 		{
-			if (state == currentState)
-			{
-				stateMatches = true;
-				break;
-			}
+			std::cout << "Error: Textbox definition not found for ID: " << tb_instance.textboxId << std::endl;
+			continue; // Skip to the next textbox if the definition is not found
 		}
+		const TextBox &textBoxDef = textBoxDefIt->second;
 
-		if (!stateMatches)
-			continue; // skip not visible boxes
-
-		// Choice from Redis or special Text
-		std::string value = (data.find(key) != data.end())					 ? data.at(key)
-							: (specialTexts.find(key) != specialTexts.end()) ? specialTexts.at(key)
-																			 : "";
-
-		if (value.empty())
-			continue; // skip empty values
-
-		this->drawText(box, value);
+		auto dataIt = data.find(textBoxDef.id);
+		if (dataIt != data.end())
+		{
+			// If the data is found, draw the text with the provided value
+			this->drawText(tb_instance, dataIt->second);
+		}
+		else
+		{
+			// If the data is not found, draw the text with the default value
+			this->drawText(tb_instance);
+		}
 	}
 }
 
@@ -217,23 +213,25 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	free(bmpBuffer);
 }
 
-void vigorTFT::drawText(const TextBox &box, const std::string &text)
+void vigorTFT::drawText(TextBoxInstance &textBox, const std::string &text)
 {
-	this->setCursor(box.x, box.y);
-
-	// Font selection
-	if (box.height == 16)
-		this->setFont(font_retro);
-	else if (box.height == 32)
-		this->setFont(font_groTesk);
-	else if (box.height == 48)
-		this->setFont(font_mint);
+	auto it = textBoxDefs.find(textBox.textboxId);
+	if (it == textBoxDefs.end())
+	{
+		std::cout << "Error: TextBoxDefinition not found for ID: " << textBox.textboxId << std::endl;
+		return;
+	}
+	const TextBoxDefinition &textBoxDef = it->second;
+	this->setCursor(textBoxDef.x, textBoxDef.y);
+	this->setFont(font_retro); // Set the font to retro
+	this->setTextColor(textBox.color, backGroundColor); // Set text color and background
+	if (text.empty())
+	{
+		this->print(textBoxDef.defaultText); // Print the default text
+	}
 	else
 	{
-		std::cerr << "Error: Font size not defined" << std::endl;
-		this->setFont(font_retro);
+		this->print(text); // Print the provided text
 	}
-
-	this->setTextColor(box.color, backGroundColor);
-	this->print(text);
 }
+	
