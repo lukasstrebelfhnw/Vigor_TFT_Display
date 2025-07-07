@@ -84,12 +84,12 @@ void vigorTFT::createDisplay(
 		if (dataIt != data.end())
 		{
 			// If the data is found, draw the text with the provided value
-			this->drawText(textBoxDef, dataIt->second);
+			this->drawText(tb_instance, dataIt->second);
 		}
 		else
 		{
 			// If the data is not found, draw the text with the default value
-			this->drawText(textBoxDef);
+			this->drawText(tb_instance);
 		}
 	}
 }
