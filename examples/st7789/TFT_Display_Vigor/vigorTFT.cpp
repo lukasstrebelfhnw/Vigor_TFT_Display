@@ -78,7 +78,7 @@ void vigorTFT::createDisplay(
 			std::cout << "Error: Textbox definition not found for ID: " << tb_instance.textboxId << std::endl;
 			continue; // Skip to the next textbox if the definition is not found
 		}
-		const TextBox &textBoxDef = textBoxDefIt->second;
+		const TextBoxDefinition &textBoxDef = textBoxDefIt->second;
 
 		auto dataIt = data.find(textBoxDef.id);
 		if (dataIt != data.end())
@@ -219,6 +219,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 
 void vigorTFT::drawText(TextBoxInstance &textBox, const std::string &text)
 {
+	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs; // Get the global variable textBoxDefs
 	auto it = textBoxDefs.find(textBox.textboxId);
 	if (it == textBoxDefs.end())
 	{
