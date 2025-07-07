@@ -217,7 +217,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	free(bmpBuffer);
 }
 
-void vigorTFT::drawText(TextBoxInstance &textBox, const std::string &text)
+void vigorTFT::drawText(TextBoxInstance &textBox, const std::string &text = "")
 {
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs; // Get the global variable textBoxDefs
 	auto it = textBoxDefs.find(textBox.textboxId);
