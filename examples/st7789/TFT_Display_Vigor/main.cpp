@@ -17,7 +17,6 @@
 #include "vigorTFT.h"
 #include <vector>
 #include <unordered_map>
-#include "TextBox.h"
 
 #define cycleTimeMs 3000 // Zykluszeit in Millisekunden
 // Picture ::  Defines
