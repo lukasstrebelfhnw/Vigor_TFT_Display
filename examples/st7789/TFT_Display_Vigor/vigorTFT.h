@@ -47,5 +47,5 @@ public:
   void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::string &currentState);
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
-  void drawText(TextBoxInstance &textBox, const std::string &text = ""); // Draw text in TextBoxInstance, if text is empty, use defaultText from TextBoxDefinition
+  void drawText(const TextBoxInstance &textBox, const std::string &text = ""); // Draw text in TextBoxInstance, if text is empty, use defaultText from TextBoxDefinition
 };
