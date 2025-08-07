@@ -30,7 +30,7 @@ void vigorTFT::createInitDisplay()
 	uint16_t spaceMean = ((myTFTHeight - y - logoVigorHeight - loadingBarHight - versionFontHight) / 3);
 
 	// Buils Display
-	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
+	this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
 	this->fillScreen(RVLC_BLACK);
 	this->drawBMPPicture(x, y, logoVigorWidth, logoVigorHeight, pathLogoVigor);
 
@@ -55,7 +55,7 @@ void vigorTFT::createDisplay(
 	extern std::unordered_map<std::string, Screen> screens;
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
-	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
+	this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
 	this->fillScreen(RVLC_BLACK);
 
 	// get textboxes from screens for current state
