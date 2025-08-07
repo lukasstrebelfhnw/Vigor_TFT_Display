@@ -24,7 +24,7 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
     {"tb_b4_lr", {"", "L/R", 262, 194, 48, 32}},
     {"tb_b4_nein", {"", "Nein", 246, 194, 64, 32}},
     {"tb_b4_zu", {"", "zu", 262, 194, 48, 32}},
-    {"tb_b4_quittieren", {"", "quittieren", 1150, 194, 64, 32}},
+    {"tb_b4_quittieren", {"", "quittieren", 150, 194, 64, 32}},
 };
 
 
@@ -102,7 +102,9 @@ std::unordered_map<std::string, Screen> screens = {
                 {"tb_soll_l", RVLC_YELLOW},
                 {"tb_soll_r", RVLC_YELLOW},
                 {"tb_speed", RVLC_YELLOW},
-                {"tb_gps", RVLC_YELLOW}
+                {"tb_gps", RVLC_YELLOW},
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW}
             }
         }
     },
