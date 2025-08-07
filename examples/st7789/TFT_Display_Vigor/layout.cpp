@@ -16,14 +16,12 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
     {"tb_fehler", {"", "Fehlercode: 0xGG", 16, 16, 288, 32}},
     {"tb_fehlerbeschrieb", {"hmi_fehler", "Fehlerbeschreibung", 16, 52, 288, 16}},
     {"tb_b1_auf", {"", "auf", 262, 14, 48, 32}},
-    {"tb_b1_+", {"", "+", 294, 14, 16, 32}},
     {"tb_b2_zu", {"", "zu", 278, 74, 48, 32}},
-    {"tb_b2_-", {"", "-", 294, 74, 16, 32}},
+    {"tb_b3_+", {"", "+", 294, 134, 16, 32}},
     {"tb_b3_ja", {"", "Ja", 278, 134, 32, 32}},
-    {"tb_b3_auf", {"", "auf", 278, 134, 48, 32}},
+    {"tb_b4_-", {"", "-", 294, 194, 16, 32}},
     {"tb_b4_lr", {"", "L/R", 262, 194, 48, 32}},
     {"tb_b4_nein", {"", "Nein", 246, 194, 64, 32}},
-    {"tb_b4_zu", {"", "zu", 262, 194, 48, 32}},
     {"tb_b4_quittieren", {"", "quittieren", 150, 194, 64, 32}},
 };
 
@@ -44,10 +42,10 @@ std::unordered_map<std::string, Screen> screens = {
             {
                 {"tb_vend_ist_l", RVLC_GREY},
                 {"tb_vend_soll", RVLC_YELLOW},
-                {"tb_b1_+", RVLC_YELLOW},
-                {"tb_b2_-", RVLC_YELLOW},
-                {"tb_b3_auf", RVLC_YELLOW},
-                {"tb_b4_zu", RVLC_YELLOW}
+                {"tb_b1_auf", RVLC_YELLOW},
+                {"tb_b2_zu", RVLC_YELLOW},
+                {"tb_b3_+", RVLC_YELLOW},
+                {"tb_b4_-", RVLC_YELLOW}
             }
         }
     },
