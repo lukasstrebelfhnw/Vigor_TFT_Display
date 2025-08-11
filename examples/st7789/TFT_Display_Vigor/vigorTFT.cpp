@@ -4,6 +4,8 @@
 
 #include "vigorTFT.h"
 
+std::string vigorTFT::old_state = ""; // Initialize the static variable
+
 vigorTFT::vigorTFT()
 {
 	// myVigorTFT = new vigorTFT(); // dinamic memory allocation is this allowed by Raspberry Pi? ask Dani
