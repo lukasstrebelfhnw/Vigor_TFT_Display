@@ -57,13 +57,6 @@ void vigorTFT::createDisplay(
 	extern std::unordered_map<std::string, Screen> screens;
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
-	if (old_state != currentState)
-	{
-		this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
-		this->fillScreen(RVLC_BLACK);
-		old_state = currentState;
-	}
-
 	// get textboxes from screens for current state
 	auto stateIt = screens.find(currentState);
 	if (stateIt == screens.end())
@@ -72,8 +65,45 @@ void vigorTFT::createDisplay(
 		return;
 	}
 	const auto &tb_instances = stateIt->second;
-	for (const auto &tb_instance : tb_instances.elements)
+
+	if (old_state != currentState)
 	{
+		this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
+		this->fillScreen(RVLC_BLACK);
+		old_state = currentState;
+
+		for (const auto &tb_instance : tb_instances.elements)
+		{ 
+			// get textbox definition from textBoxDefs
+			auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
+			if (textBoxDefIt == textBoxDefs.end())
+			{
+				std::cout << "Error: Textbox definition not found for ID: " << tb_instance.textboxId << std::endl;
+				continue; // Skip to the next textbox if the definition is not found
+			}
+			const TextBoxDefinition &textBoxDef = textBoxDefIt->second;
+
+			// if not updateable then draw and else skip
+			if (!textBoxDef.updateable)
+			{
+				auto dataIt = data.find(textBoxDef.id);
+				if (dataIt != data.end())
+				{
+					// If the data is found, draw the text with the provided value
+					this->drawText(tb_instance, dataIt->second);
+				}
+				else
+				{
+					// If the data is not found, draw the text with the default value
+					this->drawText(tb_instance);
+				}
+			}
+		}
+	}
+
+	
+	for (const auto &tb_instance : tb_instances.elements)
+	{ 
 		// get textbox definition from textBoxDefs
 		auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
 		if (textBoxDefIt == textBoxDefs.end())
@@ -83,16 +113,20 @@ void vigorTFT::createDisplay(
 		}
 		const TextBoxDefinition &textBoxDef = textBoxDefIt->second;
 
-		auto dataIt = data.find(textBoxDef.id);
-		if (dataIt != data.end())
+		// if updateable then draw and else skip
+		if (textBoxDef.updateable)
 		{
-			// If the data is found, draw the text with the provided value
-			this->drawText(tb_instance, dataIt->second);
-		}
-		else
-		{
-			// If the data is not found, draw the text with the default value
-			this->drawText(tb_instance);
+			auto dataIt = data.find(textBoxDef.id);
+			if (dataIt != data.end())
+			{
+				// If the data is found, draw the text with the provided value
+				this->drawText(tb_instance, dataIt->second);
+			}
+			else
+			{
+				// If the data is not found, draw the text with the default value
+				this->drawText(tb_instance);
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ struct TextBoxDefinition {
     int y;
     int width;
     int height;
+    bool updateable;
 };
 
 struct TextBoxInstance {
