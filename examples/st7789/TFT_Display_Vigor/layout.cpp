@@ -5,7 +5,7 @@ std::unordered_map<std::string, TextBoxDefinition> textBoxDefs = {
     {"tb_vend_ist_l", {"hmi_vend_ist", "1234", 42, 48, 96, 16, false}},
     {"tb_vend_ist_r", {"hmi_vend_ist", "1234", 172, 48, 96, 16, false}},
     {"tb_richtig", {"", "richtig kalibriert?", 8, 10, 304, 32, false}},
-    {"tb_vend_soll", {"hmi_vend_soll", "1234", 10, 96, 128, 48, false}},
+    {"tb_vend_soll", {"hmi_vend_soll", "1234", 10, 96, 128, 48, true}},
     {"tb_pos_l", {"hmi_pos_l", "12%", 10, 96, 128, 48, true}},
     {"tb_pos_r", {"hmi_pos_r", "12%", 140, 96, 128, 48, true}},
     {"tb_soll_l", {"hmi_soll_l", "12%", 42, 159, 32, 16, true}},
