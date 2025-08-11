@@ -30,6 +30,8 @@ using text = std::string;
 class vigorTFT : public ST7789_TFT
 {
 private:
+  static std::string old_state;  // Stores the previous state
+
 public:
   // Constructor and Destructor
   vigorTFT();

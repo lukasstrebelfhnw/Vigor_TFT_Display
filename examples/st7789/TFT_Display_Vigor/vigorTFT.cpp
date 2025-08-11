@@ -42,7 +42,7 @@ void vigorTFT::createInitDisplay()
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
 		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_GREEN, RVLC_DGREEN, i, true);
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		std::this_thread::sleep_for(std::chrono::milliseconds(3500));
 	}
 	this->fillScreen(RVLC_BLACK);
 }
@@ -55,8 +55,12 @@ void vigorTFT::createDisplay(
 	extern std::unordered_map<std::string, Screen> screens;
 	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
-	this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
-	this->fillScreen(RVLC_BLACK);
+	if (old_state != currentState)
+	{
+		this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
+		this->fillScreen(RVLC_BLACK);
+		old_state = currentState;
+	}
 
 	// get textboxes from screens for current state
 	auto stateIt = screens.find(currentState);
