@@ -2,30 +2,22 @@
 // Created by lukas on 05.03.2025.
 //
 
-#ifndef VIGORTFT_H
-#define VIGORTFT_H
+#pragma once
 
-#include "vigorTFT.h"
-#include <ctime>
 #include <chrono>
 #include <thread>
-#include <string>
 #include <iostream>
 #include <cstring>
-#include "ST7789_TFT_LCD_RVL.hpp"
 #include <hiredis/hiredis.h>
-#include <unordered_map>
-#include "TextBox.h"
+#include "ST7789_TFT_LCD_RVL.hpp"
+#include "layout.h"
 
-// Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
-#define buttonGrey 0x52EC
-#define buttonAuto 0x1389
-#define buttonSemi 0xB666
-#define buttonMan 0xFE88
-#define buttonRand 0x543A
-#define backGroundColor 0x9D14
-#define vigorDGreen 0x73E6
-#define vigorLGreen 0xADE6
+#define myTFTWidth 240
+#define myTFTHeight 320
+#define logoVigorWidth 240	
+#define logoVigorHeight 122
+#define pathLogoVigor "bitmap/Vigor_Logo_o_Hg_16-bitRGB565.bmp"
+const std::string vigorVersion = "Vigor TFT version 1.0";
 
 // Datatype definitions
 using message = std::string;
@@ -38,23 +30,18 @@ using text = std::string;
 class vigorTFT : public ST7789_TFT
 {
 private:
+  static std::string old_state;  // Stores the previous state
+
 public:
   // Constructor and Destructor
   vigorTFT();
   ~vigorTFT();
 
   // Creates Display Methods
-  void createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth);
-  void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::unordered_map<std::string, TextBox> &textBoxes, const std::string &currentState);
-  void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
-  /* not used functions
-  void createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame);
-  void createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text);
-  void createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor);
-  */
+  void createInitDisplay();
+  void createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue);
+  void createDisplay(const std::unordered_map<std::string, std::string> &data, const std::string &currentState);
   // Set Bitmap Picture
   void drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path); // Check Parameters, Height, Width, Color, File
-  void drawText(const TextBox &box, const std::string &text);
+  void drawText(const TextBoxInstance &textBox, const std::string &text = ""); // Draw text in TextBoxInstance, if text is empty, use defaultText from TextBoxDefinition
 };
-
-#endif // VIGORTFT_H

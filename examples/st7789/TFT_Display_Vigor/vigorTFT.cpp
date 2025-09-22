@@ -3,26 +3,8 @@
 //
 
 #include "vigorTFT.h"
-#include <ctime>
-#include <chrono>
-#include <thread>
-#include <string>
-#include <iostream>
-#include <cstring>
-#include "ST7789_TFT_LCD_RVL.hpp"
-#include <hiredis/hiredis.h>
-#include <unordered_map>
-#include "TextBox.h"
 
-// Color definitions 16-Bit Color Values R5G6B5 from Vigor Frontpaneel
-#define buttonGrey 0x52EC
-#define buttonAuto 0x1389
-#define buttonSemi 0xB666
-#define buttonMan 0xFE88
-#define buttonRand 0x543A
-#define backGroundColor 0x9D14
-#define vigorDGreen 0x73E6
-#define vigorLGreen 0xADE6
+std::string vigorTFT::old_state = ""; // Initialize the static variable
 
 vigorTFT::vigorTFT()
 {
@@ -34,12 +16,11 @@ vigorTFT::~vigorTFT()
 	// delete myVigorTFT;
 }
 
-void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path, std::string versionVigor, uint16_t myTFTHeight, uint16_t myTFTWidth)
+void vigorTFT::createInitDisplay()
 {
 	/* If you cange the font, you have to change also the Hight and Width of the font
 	Font definitions*/
 	uint8_t versionFontHight = 16; // font_retro 16
-	uint8_t versionFontWidth = 8;  // font_retro 8
 	// End Font definitions
 
 	// Set Display parameter
@@ -48,78 +29,109 @@ void vigorTFT::createInitDisplay(uint16_t bitMapWidth, uint16_t bitMapHeight, co
 	uint16_t y = 15;			   // Set y Poition Logo effective Value left top corner Display
 	uint16_t loadingBarHight = 38; // Important if is this value bigger than (fontHigh+1+2*lineThickness)
 	uint16_t loadingBarWidth = myTFTWidth - (2 * x);
-	uint16_t spaceMean = ((myTFTHeight - y - bitMapHeight - loadingBarHight - versionFontHight) / 3);
-	uint16_t versionText_x = (myTFTWidth - (versionVigor.length() * versionFontWidth)) / 2; // Set x Poition versionText effective Value left top corner Display
-	uint16_t versionText_y = y + bitMapHeight + 2 * spaceMean + loadingBarHight;			// Set y Poition versionText effective Value left top corner Display
+	uint16_t spaceMean = ((myTFTHeight - y - logoVigorHeight - loadingBarHight - versionFontHight) / 3);
 
 	// Buils Display
-	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-	this->fillScreen(backGroundColor);
-	this->drawBMPPicture(x, y, bitMapWidth, bitMapHeight, path);
+	this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
+	this->fillScreen(RVLC_BLACK);
+	this->drawBMPPicture(x, y, logoVigorWidth, logoVigorHeight, pathLogoVigor);
 
-	this->setCursor(x * 2, y + bitMapHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
+	this->setCursor(x * 2, y + logoVigorHeight + 2 * spaceMean + loadingBarHight); // set Cursor left top corner
 	this->setFont(font_retro);													// select font
-	this->setTextColor(buttonRand, backGroundColor);							// select color
-	this->print(versionVigor);
+	this->setTextColor(RVLC_YELLOW, RVLC_BLACK);							// select color
+	this->print(vigorVersion);
 
 	for (int i = 0; i < 100; i++) // for-loop for loading bar
 	{
-		this->createLoadingBar(x, (y + bitMapHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, backGroundColor, buttonAuto, buttonSemi, i, true);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		this->createLoadingBar(x, (y + logoVigorHeight + spaceMean), loadingBarWidth, loadingBarHight, 6, RVLC_GREEN, RVLC_DGREEN, i, true);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 	this->fillScreen(RVLC_BLACK);
 }
 
 void vigorTFT::createDisplay(
 	const std::unordered_map<std::string, std::string> &data,
-	const std::unordered_map<std::string, TextBox> &textBoxes,
 	const std::string &currentState)
 {
-	this->TFTsetRotation(this->TFT_Degrees_90); // Rotate the display
-	this->fillScreen(backGroundColor);
+	// get global variable screens from layout
+	extern std::unordered_map<std::string, Screen> screens;
+	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs;
 
-	// 🔥 Lookup-Tabelle für spezielle Texte
-	std::unordered_map<std::string, std::string> specialTexts = {
-		{"hmi_button1_3Z", "auf"}, {"hmi_button1_1Z", "+"}, {"hmi_button2_2Z", "zu"}, {"hmi_button2_1Z", "-"}, {"hmi_button3_2Z", "JA"}, {"hmi_button4_3Z", "L/R"}, {"hmi_button4_4Z", "NEIN"}, {"hmi_button4_8Z", "abdrehen"}, {"hmi_button4_10Z", "quittieren"}, {"hmi_calibrated", "richtig kalibriert?"}, {"hmi_vend_ist_R", data.at("hmi_vend_ist")}, {"hmi_vend_ist_L", data.at("hmi_vend_ist")}};
-
-	// Iteriere über alle TextBoxen
-	for (const auto &[key, box] : textBoxes)
+	// get textboxes from screens for current state
+	auto stateIt = screens.find(currentState);
+	if (stateIt == screens.end())
 	{
-		// valid Box visability
-		std::istringstream ss(box.useableSTATES);
-		std::string state;
-		bool stateMatches = false;
+		std::cout << "Error: Current state not found in screens" << std::endl;
+		return;
+	}
+	const auto &tb_instances = stateIt->second;
 
-		while (std::getline(ss, state, ';'))
-		{
-			if (state == currentState)
+	if (old_state != currentState)
+	{
+		this->TFTsetRotation(this->TFT_Degrees_270); // Rotate the display
+		this->fillScreen(RVLC_BLACK);
+		old_state = currentState;
+
+		for (const auto &tb_instance : tb_instances.elements)
+		{ 
+			// get textbox definition from textBoxDefs
+			auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
+			if (textBoxDefIt == textBoxDefs.end())
 			{
-				stateMatches = true;
-				break;
+				std::cout << "Error: Textbox definition not found for ID: " << tb_instance.textboxId << std::endl;
+				continue; // Skip to the next textbox if the definition is not found
+			}
+			const TextBoxDefinition &textBoxDef = textBoxDefIt->second;
+
+			// if not updateable then draw and else skip
+			if (!textBoxDef.updateable)
+			{
+				auto dataIt = data.find(textBoxDef.id);
+				if (dataIt != data.end())
+				{
+					// If the data is found, draw the text with the provided value
+					this->drawText(tb_instance, dataIt->second);
+				}
+				else
+				{
+					// If the data is not found, draw the text with the default value
+					this->drawText(tb_instance);
+				}
 			}
 		}
+	}
 
-		if (!stateMatches)
-			continue; // skip not visible boxes
+	
+	for (const auto &tb_instance : tb_instances.elements)
+	{ 
+		// get textbox definition from textBoxDefs
+		auto textBoxDefIt = textBoxDefs.find(tb_instance.textboxId);
+		if (textBoxDefIt == textBoxDefs.end())
+		{
+			std::cout << "Error: Textbox definition not found for ID: " << tb_instance.textboxId << std::endl;
+			continue; // Skip to the next textbox if the definition is not found
+		}
+		const TextBoxDefinition &textBoxDef = textBoxDefIt->second;
 
-		// Choice from Redis or special Text
-		std::string value = (data.find(key) != data.end())					 ? data.at(key)
-							: (specialTexts.find(key) != specialTexts.end()) ? specialTexts.at(key)
-																			 : "";
-
-		if (value.empty())
-			continue; // skip empty values
-
-		this->drawText(box, value);
+		// if updateable then draw and else skip
+		if (textBoxDef.updateable)
+		{
+			auto dataIt = data.find(textBoxDef.id);
+			if (dataIt != data.end())
+			{
+				// If the data is found, draw the text with the provided value
+				this->drawText(tb_instance, dataIt->second);
+			}
+			else
+			{
+				// If the data is not found, draw the text with the default value
+				this->drawText(tb_instance);
+			}
+		}
 	}
 }
 
-/*
-TODO:
-Uptade this Function with font size from common_data.h
-*/
-
-void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorBackground, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
+void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t lineThickness, uint16_t colorFrame, uint16_t colorBar, uint16_t barValue, bool showValue)
 {
 	display_Font_name_e font = font_orla;
 	uint16_t effectiveFontSizeWidth = 16;					   // this->getFontSizeWidth(&font);
@@ -127,9 +139,6 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 	uint16_t effectiveBarHeight = effectiveFontSizeHeight + 1; // this->getFontSizeHeight(&font);
 	uint16_t effectiveBarWidth = w - 2 * lineThickness;
 	this->fillRectangle(x, y, w, h, colorFrame);
-
-	// Override the inner rectangle with the background color
-	// this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackground);
 
 	if (showValue)
 	{
@@ -178,37 +187,6 @@ void vigorTFT::createLoadingBar(uint16_t x, uint16_t y, uint16_t w, uint16_t h, 
 		}
 	}
 }
-/*not used function
-
-void vigorTFT::createRectFrame(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t lineThickness, uint16_t colorBackgroung, uint16_t colorFrame)
-{
-	this->fillRectangle(x, y, w, w, colorFrame);
-	this->fillRectangle(x + lineThickness, y + lineThickness, w - 2 * lineThickness, h - 2 * lineThickness, colorBackgroung);
-}
-
-void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, std::string text)
-{
-	this->setCursor(x, y);
-	this->setFont(font);		   // select font
-	this->setTextColor(textColor); // first text last background
-	this->print(text);
-}
-
-void vigorTFT::createTextBox(int16_t x, int16_t y, display_Font_name_e font, uint16_t textColor, uint16_t toggleTextColor, std::string text, bool toggleColor)
-{
-	this->setCursor(x, y);
-	this->setFont(font); // select font
-	if (toggleColor)
-	{
-		this->setTextColor(toggleTextColor); // first text last background
-	}
-	else
-	{
-		this->setTextColor(textColor); // first text last background
-	}
-	this->print(text);
-}
-*/
 
 void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint16_t bitMapHeight, const char *path)
 {
@@ -255,8 +233,7 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 		uint16_t *pixel = (uint16_t *)&bmpBuffer[i * 2];
 		if (*pixel == 0xFFFF) // Wenn der Pixel weiß ist
 		{
-			std::cout << "Override Background from BMP" << std::endl;
-			*pixel = backGroundColor; // Ersetze durch die gewählte Farbe
+			*pixel = RVLC_BLACK; // Ersetze durch die gewählte Farbe
 		}
 	}
 
@@ -268,23 +245,42 @@ void vigorTFT::drawBMPPicture(uint16_t x, uint16_t y, uint16_t bitMapWidth, uint
 	free(bmpBuffer);
 }
 
-void vigorTFT::drawText(const TextBox &box, const std::string &text)
+void vigorTFT::drawText(const TextBoxInstance &textBox, const std::string &text)
 {
-	this->setCursor(box.x, box.y);
-
-	// Font selection
-	if (box.height == 16)
-		this->setFont(font_retro);
-	else if (box.height == 32)
-		this->setFont(font_groTesk);
-	else if (box.height == 48)
-		this->setFont(font_mint);
-	else
+	extern std::unordered_map<std::string, TextBoxDefinition> textBoxDefs; // Get the global variable textBoxDefs
+	auto it = textBoxDefs.find(textBox.textboxId);
+	if (it == textBoxDefs.end())
 	{
-		std::cerr << "Error: Font size not defined" << std::endl;
+		std::cout << "Error: TextBoxDefinition not found for ID: " << textBox.textboxId << std::endl;
+		return;
+	}
+	const TextBoxDefinition &textBoxDef = it->second;
+	this->setCursor(textBoxDef.x, textBoxDef.y);
+	if (textBoxDef.height == 16)
+	{
 		this->setFont(font_retro);
 	}
-
-	this->setTextColor(buttonRand, backGroundColor);
-	this->print(text);
+	else if (textBoxDef.height == 32)
+	{
+		this->setFont(font_groTesk);
+	}
+	else if (textBoxDef.height == 48)
+	{
+		this->setFont(font_mint);
+	}
+	else
+	{
+		std::cout << "Error: Unsupported text box height: " << textBoxDef.height << std::endl;
+		return;
+	}
+	this->setTextColor(textBox.color, RVLC_BLACK); // Set text color and background
+	if (text.empty())
+	{
+		this->print(textBoxDef.defaultText); // Print the default text
+	}
+	else
+	{
+		this->print(text); // Print the provided text
+	}
 }
+	
